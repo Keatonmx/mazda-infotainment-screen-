@@ -1,0 +1,93 @@
+/* Knob Breakout: plain boxes, no shadows or animations, to stay fast on the CMU. */
+
+[app="app.breakout"] {
+    background: #000;
+}
+
+[app="app.breakout"] .bo {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    width: 800px;
+    height: 416px;
+    overflow: hidden;
+    font-family: sans-serif;
+    color: #f2f2f2;
+}
+
+[app="app.breakout"] .bo > div {
+    position: absolute;
+}
+
+[app="app.breakout"] .hud {
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    line-height: 40px;
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: #8a8a8a;
+    border-bottom: 1px solid #222;
+    text-align: center;
+}
+
+[app="app.breakout"] .hud span {
+    display: inline-block;
+    width: 24%;
+}
+
+[app="app.breakout"] .hud .lives {
+    color: #c8102e;
+}
+
+[app="app.breakout"] .brick {
+    width: 90px;
+    height: 22px;
+    border-radius: 3px;
+}
+
+[app="app.breakout"] .row0 { background: #c8102e; }
+[app="app.breakout"] .row1 { background: #ff6a13; }
+[app="app.breakout"] .row2 { background: #ffb020; }
+[app="app.breakout"] .row3 { background: #3ddc84; }
+[app="app.breakout"] .row4 { background: #3d9bff; }
+
+[app="app.breakout"] .paddle {
+    width: 120px;
+    height: 14px;
+    border-radius: 7px;
+    background: #f2f2f2;
+}
+
+[app="app.breakout"] .ball {
+    width: 14px;
+    height: 14px;
+    border-radius: 7px;
+    background: #fff;
+}
+
+[app="app.breakout"] .msg {
+    left: 0;
+    right: 0;
+    top: 230px;
+    text-align: center;
+    font-size: 56px;
+    font-weight: bold;
+    letter-spacing: 4px;
+}
+
+[app="app.breakout"] .msg small {
+    display: block;
+    font-size: 22px;
+    font-weight: normal;
+    letter-spacing: 1px;
+    color: #aaa;
+    margin-top: 8px;
+}
+
+[app="app.breakout"] .locked .brick,
+[app="app.breakout"] .locked .paddle,
+[app="app.breakout"] .locked .ball {
+    opacity: 0.25;
+}

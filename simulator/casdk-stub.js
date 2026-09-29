@@ -26,6 +26,8 @@ var VehicleData = {
         coolant: {id: 'PIDEngineCoolantTemperature'}
     },
     gps: {
+        latitude: {id: 'GPSLatitude'},
+        longitude: {id: 'GPSLongitude'},
         heading: {id: 'GPSHeading'},
         altitude: {id: 'GPSAltitude'}
     }
@@ -67,7 +69,22 @@ var CustomApplicationsHandler = {
         canvas.setAttribute('app', id);
         app.canvas = [canvas];
         document.getElementById('title').textContent = app.settings.title;
-        app.created();
+
+        // like the real CASDK: load the app's extra scripts before created()
+        var scripts = (app.require && app.require.js) || [];
+        var base = '../apps/' + id + '/';
+        (function next(i) {
+            if (i >= scripts.length) {
+                app.created();
+                if (app.focused) app.focused();
+                Sim.replay();
+                return;
+            }
+            var tag = document.createElement('script');
+            tag.src = base + scripts[i];
+            tag.onload = function() { next(i + 1); };
+            document.head.appendChild(tag);
+        })(0);
     }
 };
 
@@ -77,17 +94,25 @@ Sim.push = function(field, value) {
     if (cb) cb(value);
 };
 
+// values pushed before the app finished loading are re-sent once it is ready
+Sim.replay = function() {
+    for (var id in Sim.values) {
+        var cb = Sim.app.__subscriptions[id.toLowerCase()];
+        if (cb) cb(Sim.values[id]);
+    }
+};
+
 Sim.controller = function(eventId) {
     if (Sim.app && Sim.app.onControllerEvent) Sim.app.onControllerEvent(eventId);
 };
 
 Sim.setRegion = function(region) {
     Sim.region = region;
-    if (Sim.app) Sim.app.render();
+    if (Sim.app && Sim.app.render) Sim.app.render();
 };
 
 Sim.resetStorage = function() {
     try { localStorage.removeItem('sim.' + Sim.app.id); } catch (e) {}
     Sim.app.__storage = null;
-    Sim.app.render();
+    location.reload();
 };
