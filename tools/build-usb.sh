@@ -7,7 +7,7 @@ OUT="${ROOT}/dist/usb"
 rm -rf "${OUT}"
 mkdir -p "${OUT}/apps" "${OUT}/greeting/sounds"
 cp "${ROOT}/installer/tweaks.sh" "${OUT}/"
-for APP in app.gtdash app.knobbrick app.roadtrip app.carpet; do
+for APP in app.gtdash app.knobbrick app.roadtrip app.carpet app.companion; do
   cp -R "${ROOT}/apps/${APP}" "${OUT}/apps/"
 done
 cp "${ROOT}/greeting/mzd-greeting.js" "${OUT}/greeting/"

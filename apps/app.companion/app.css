@@ -1,0 +1,89 @@
+/* Akari: one sprite sheet, frames picked with background-position. No CSS animations or scaling. */
+
+[app="app.companion"] {
+    background: #000;
+}
+
+[app="app.companion"] .ak {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    width: 800px;
+    height: 416px;
+    overflow: hidden;
+    font-family: sans-serif;
+    color: #f2f2f2;
+}
+
+[app="app.companion"] .sprite {
+    position: absolute;
+    left: 110px;
+    top: 90px;
+    width: 240px;
+    height: 240px;
+    background-image: url(sprites.png);
+    background-repeat: no-repeat;
+}
+
+[app="app.companion"] .bubble {
+    position: absolute;
+    left: 390px;
+    top: 110px;
+    width: 330px;
+    padding: 22px 20px;
+    background: #f2f2f2;
+    color: #111;
+    border-radius: 22px;
+    font-size: 28px;
+    line-height: 36px;
+    text-align: center;
+}
+
+[app="app.companion"] .bubble.lv3 { background: #ffe1a6; }
+[app="app.companion"] .bubble.lv4 { background: #ffb3b3; font-weight: bold; }
+[app="app.companion"] .bubble.lv5 { background: #ff4d5e; color: #fff; font-weight: bold; font-size: 32px; }
+[app="app.companion"] .bubble.pat { background: #ffd6e7; color: #111; font-weight: normal; font-size: 28px; }
+
+/* little tail pointing at her */
+[app="app.companion"] .bubble:before {
+    content: '';
+    position: absolute;
+    left: -18px;
+    top: 30px;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-right: 20px solid #f2f2f2;
+}
+
+[app="app.companion"] .bubble.lv3:before { border-right-color: #ffe1a6; }
+[app="app.companion"] .bubble.lv4:before { border-right-color: #ffb3b3; }
+[app="app.companion"] .bubble.lv5:before { border-right-color: #ff4d5e; }
+[app="app.companion"] .bubble.pat:before { border-right-color: #ffd6e7; }
+
+[app="app.companion"] .hud {
+    position: absolute;
+    left: 390px;
+    top: 290px;
+    width: 370px;
+    text-align: center;
+}
+
+[app="app.companion"] .speed {
+    display: block;
+    font-size: 30px;
+    color: #8a8a8a;
+    margin-bottom: 10px;
+}
+
+[app="app.companion"] .meter i {
+    display: inline-block;
+    width: 44px;
+    height: 12px;
+    margin: 0 4px;
+    border-radius: 6px;
+    background: #26272c;
+}
+
+[app="app.companion"] .meter i.on { background: #ffb020; }
+[app="app.companion"] .lv4 .meter i.on { background: #ff6a3d; }
+[app="app.companion"] .lv5 .meter i.on { background: #ff2d45; }

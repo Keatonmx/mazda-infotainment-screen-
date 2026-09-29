@@ -10,6 +10,7 @@ Custom apps and guides for a 2016 Mazda 3 Grand Touring (Mazda Connect, 7" scree
 | **[Knob Breakout](apps/app.knobbrick)** | Brick breaker played by spinning the commander knob. Parked only. |
 | **[Road Trip](apps/app.roadtrip)** | Colors in each US state you drive in, with a "NEW STATE!" banner, farthest-from-home and highest-point records |
 | **[Kodo](apps/app.carpet)** | A car pet whose mood follows how the car is treated: smooth driving, warm-ups, fuel, oil changes, weather. Levels up with miles. |
+| **[Akari](apps/app.companion)** | An anime chibi companion who gets madder the faster you drive: happy, pouty, puffed cheeks, shouting, then full meltdown with steam at 85+ mph. Pat her head while parked. |
 | **[Startup greeting](greeting)** | A card at startup: good morning, holidays, your birthday, odometer milestones, cold-engine and oil reminders |
 | **[Startup sound](docs/STARTUP_SOUND.md)** | A short chime (or your own MP3) with the greeting |
 
@@ -19,6 +20,7 @@ Guides:
 - [Installing on the car](installer/README.md): one USB installs everything
 - [Startup sound findings](docs/STARTUP_SOUND.md)
 - [App ideas](docs/APP_IDEAS.md): what's possible on this hardware
+- [Akari's art](docs/COMPANION_ART.md): swapping in PixelLab sprites, with prompts
 
 ## Try everything on a computer
 
@@ -48,5 +50,6 @@ Everything runs in the simulator and has automated checks: Road Trip state looku
 npm i us-atlas@3 topojson-client@3 topojson-simplify@3 d3-geo@3 lamejs@1.2.1
 node tools/build-states.js    # Road Trip state map data
 node tools/make-chime.js      # default startup chime
+node tools/make-companion-sprites.js   # Akari placeholder sprites (needs playwright)
 sh tools/build-usb.sh         # assemble the USB installer in dist/usb
 ```

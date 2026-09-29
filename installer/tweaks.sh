@@ -1,5 +1,5 @@
 #!/bin/sh
-# Mazda Connect custom apps installer (GT Dash, Knob Breakout, Road Trip, Kodo, startup greeting + sound)
+# Mazda Connect custom apps installer (GT Dash, Knob Breakout, Road Trip, Kodo, Akari, startup greeting + sound)
 #
 # Runs on the CMU from a USB stick, the same way MZD-AIO-TI installs tweaks.
 # Needs: firmware that accepts AIO tweaks, and AIO's CASDK framework already installed (for the apps).
@@ -11,6 +11,7 @@ INSTALL_GTDASH=1
 INSTALL_KNOBBRICK=1
 INSTALL_ROADTRIP=1
 INSTALL_KODO=1
+INSTALL_COMPANION=1
 INSTALL_GREETING=1
 INSTALL_SOUND=1
 UNINSTALL=0
@@ -87,7 +88,7 @@ mount -o rw,remount "${MYDIR}"
 if [ "${UNINSTALL}" -eq 1 ]
 then
   show_message "REMOVING CUSTOM APPS..."
-  for APP in app.gtdash app.knobbrick app.roadtrip app.carpet
+  for APP in app.gtdash app.knobbrick app.roadtrip app.carpet app.companion
   do
     uninstall_app "${APP}"
   done
@@ -98,7 +99,7 @@ then
 fi
 
 # ---- apps (need AIO + CASDK) ----
-if [ "${INSTALL_GTDASH}${INSTALL_KNOBBRICK}${INSTALL_ROADTRIP}${INSTALL_KODO}" != "0000" ]
+if [ "${INSTALL_GTDASH}${INSTALL_KNOBBRICK}${INSTALL_ROADTRIP}${INSTALL_KODO}${INSTALL_COMPANION}" != "00000" ]
 then
   if [ ! -e /jci/casdk/casdk.aio ]
   then
@@ -119,6 +120,7 @@ then
     install_app "${INSTALL_KNOBBRICK}" app.knobbrick
     install_app "${INSTALL_ROADTRIP}" app.roadtrip
     install_app "${INSTALL_KODO}" app.carpet
+    install_app "${INSTALL_COMPANION}" app.companion
     echo "];" >> "${APPS_JS}"
     chmod -R 777 "${APP_DIR}"
   fi
