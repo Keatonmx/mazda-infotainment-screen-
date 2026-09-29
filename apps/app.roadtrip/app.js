@@ -16,7 +16,7 @@ CustomApplicationsHandler.register("app.roadtrip", new CustomApplication({
 
     require: {
         js: ['states.js'],
-        css: ['app.css'],
+        css: ['theme/kodo.css', 'app.css'],
         images: {}
     },
 
@@ -36,7 +36,7 @@ CustomApplicationsHandler.register("app.roadtrip", new CustomApplication({
     created: function() {
         var root = this.canvas[0];
         this.el = document.createElement('div');
-        this.el.className = 'rt';
+        this.el.className = 'k-root rt';
         root.appendChild(this.el);
 
         this.page = 0;
@@ -200,37 +200,48 @@ CustomApplicationsHandler.register("app.roadtrip", new CustomApplication({
         if (!this.el) return;
         var count = this.visitedCount();
         var where = this.current ? this.current.n : (this.validFix() ? 'Outside the US' : 'Waiting for GPS');
+        var html = '<div class="k-ribbon"><b>' + (this.page === 0 ? '旅の記録' : '記録') + '</b><i>' +
+            (this.page === 0 ? 'ROAD TRIP' : 'RECORDS') + '</i></div>' +
+            '<div class="k-side">旅<br>路</div>';
 
         if (this.page === 0) {
-            this.el.innerHTML = '<canvas width="' + ROADTRIP_MAP.w + '" height="' + ROADTRIP_MAP.h + '"></canvas>' +
-                '<div class="strip"><b>' + count + '</b> / 50 states<span>' + where + '</span></div>';
-            this.drawMap(this.el.getElementsByTagName('canvas')[0]);
+            html += '<canvas width="' + Math.round(ROADTRIP_MAP.w * this.MAP_SCALE) + '" height="' +
+                Math.round(ROADTRIP_MAP.h * this.MAP_SCALE) + '"></canvas>' +
+                '<div class="strip"><b class="k-num">' + count + '</b><span class="of">/ 50</span>' +
+                '<span class="k-label">州<i>STATES</i></span>' +
+                '<span class="k-label now">現在地<i>NOW</i></span><span class="where">' + where + '</span></div>';
         } else {
-            this.el.innerHTML = this.statsHtml(count);
+            html += this.statsHtml(count);
         }
 
         if (this.banner) {
-            this.el.innerHTML += '<div class="banner"><small>NEW STATE!</small>' + this.banner.n +
-                '<small>#' + count + ' of 50</small></div>';
+            html += '<div class="k-card banner"><div class="k-stamp">制<br>覇</div>' +
+                '<div class="bt"><span class="k-jp">新しい州！</span><i>NEW STATE</i>' +
+                '<b class="k-num">' + this.banner.n + '</b><em>#' + count + ' / 50</em></div></div>';
         }
+        this.el.innerHTML = html;
+        if (this.page === 0) this.drawMap(this.el.getElementsByTagName('canvas')[0]);
     },
+
+    MAP_SCALE: 0.88,
 
     drawMap: function(canvas) {
         if (!canvas || !canvas.getContext) return;
         var ctx = canvas.getContext('2d'), v = this.visited();
+        ctx.scale(this.MAP_SCALE, this.MAP_SCALE);
         ctx.lineJoin = 'round';
         for (var i = 0; i < ROADTRIP_STATES.length; i++) {
             var s = ROADTRIP_STATES[i], isCurrent = s === this.current;
-            ctx.fillStyle = v[s.a] ? '#c8102e' : '#1d1f24';
-            ctx.strokeStyle = '#000';
+            ctx.fillStyle = v[s.a] ? '#c8102e' : '#221f2a';
+            ctx.strokeStyle = '#0c0b10';
             ctx.lineWidth = 1;
             this.tracePath(ctx, s);
             ctx.fill();
             ctx.stroke();
         }
         if (this.current) {  // outline the current state last so it sits on top
-            ctx.strokeStyle = '#fff';
-            ctx.lineWidth = 2.5;
+            ctx.strokeStyle = '#d4a857';
+            ctx.lineWidth = 3;
             this.tracePath(ctx, this.current);
             ctx.stroke();
         }
@@ -249,20 +260,21 @@ CustomApplicationsHandler.register("app.roadtrip", new CustomApplication({
     statsHtml: function(count) {
         var far = this.get('farthest'), high = this.get('highest'), newest = this.get('newest');
         var metric = this.isMetric();
-        var farText = far ? Math.round(metric ? far.km : far.km * 0.621371).toLocaleString() + (metric ? ' km' : ' mi') : '--';
-        var highText = high ? Math.round(metric ? high.m : high.m * 3.28084).toLocaleString() + (metric ? ' m' : ' ft') : '--';
+        var farText = far ? Math.round(metric ? far.km : far.km * 0.621371).toLocaleString() + '<em>' + (metric ? 'km' : 'mi') + '</em>' : '--';
+        var highText = high ? Math.round(metric ? high.m : high.m * 3.28084).toLocaleString() + '<em>' + (metric ? 'm' : 'ft') + '</em>' : '--';
         var home = new Date().getTime() < this.confirmUntil ? 'Press again to set home here' :
             (this.moving ? 'Home: set from first GPS fix' : 'Press knob twice to set home here');
+        var name = function(a) { return a && this.byAbbr[a] ? this.byAbbr[a].n : ''; }.bind(this);
 
-        return '<div class="stats">' +
-            this.cell('STATES', count + '<em>/ 50</em>', newest && this.byAbbr[newest] ? 'newest: ' + this.byAbbr[newest].n : '') +
-            this.cell('FARTHEST FROM HOME', farText, far && far.a && this.byAbbr[far.a] ? 'in ' + this.byAbbr[far.a].n : '') +
-            this.cell('HIGHEST POINT', highText, high && high.a && this.byAbbr[high.a] ? 'in ' + this.byAbbr[high.a].n : '') +
-            this.cell('NOW IN', this.current ? this.current.a : '--', this.current ? this.current.n : '') +
-            '</div><div class="hint">' + home + '</div>';
+        return this.cell('c1', '州', 'STATES', count + '<em>/ 50</em>', newest ? 'newest: ' + name(newest) : '') +
+            this.cell('c2', '最遠', 'FARTHEST FROM HOME', farText, far && far.a ? 'in ' + name(far.a) : '') +
+            this.cell('c3', '最高地点', 'HIGHEST POINT', highText, high && high.a ? 'in ' + name(high.a) : '') +
+            this.cell('c4', '現在地', 'NOW IN', this.current ? this.current.a : '--', this.current ? this.current.n : '') +
+            '<div class="hint">' + home + '</div>';
     },
 
-    cell: function(label, value, sub) {
-        return '<div class="cell"><span>' + label + '</span><b>' + value + '</b><i>' + sub + '</i></div>';
+    cell: function(pos, jp, en, value, sub) {
+        return '<div class="k-card cell ' + pos + '"><div class="k-label">' + jp + '<i>' + en + '</i></div>' +
+            '<b class="k-num">' + value + '</b><span class="sub">' + sub + '</span></div>';
     }
 }));

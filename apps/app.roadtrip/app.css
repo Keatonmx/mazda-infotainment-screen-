@@ -1,81 +1,136 @@
-/* Road Trip: static canvas map plus simple text. No animations. */
+/* 旅の記録 Road Trip, on the shared KODO theme. Static canvas map plus simple text, no animations. */
 
 [app="app.roadtrip"] {
-    background: #000;
-}
-
-[app="app.roadtrip"] .rt {
-    position: absolute;
-    top: 64px;
-    left: 0;
-    width: 800px;
-    height: 416px;
-    font-family: sans-serif;
-    color: #f2f2f2;
-    text-align: center;
+    background: #0c0b10;
 }
 
 [app="app.roadtrip"] canvas {
     position: absolute;
-    top: 14px;
-    left: 10px;
+    top: 66px;
+    left: 56px;
 }
+
+/* ---------- bottom strip ---------- */
 
 [app="app.roadtrip"] .strip {
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 26px;
-    font-size: 24px;
-    color: #8a8a8a;
-    letter-spacing: 1px;
+    left: 60px;
+    right: 60px;
+    bottom: 18px;
+    height: 50px;
+    line-height: 50px;
+    white-space: nowrap;
+    border-top: 1px solid rgba(212, 168, 87, 0.35);
 }
 
 [app="app.roadtrip"] .strip b {
+    font-weight: normal;
     font-size: 40px;
-    color: #f2f2f2;
 }
 
-[app="app.roadtrip"] .strip span {
-    margin-left: 40px;
-    color: #f2f2f2;
+[app="app.roadtrip"] .strip .of {
+    font-family: 'KodoDisplay', sans-serif;
+    font-size: 20px;
+    color: #8c8696;
+    margin: 0 14px 0 6px;
 }
 
-[app="app.roadtrip"] .stats {
-    padding-top: 20px;
+[app="app.roadtrip"] .strip .now {
+    margin-left: 50px;
 }
+
+[app="app.roadtrip"] .strip .where {
+    font-family: 'KodoDisplay', sans-serif;
+    font-size: 24px;
+    margin-left: 14px;
+}
+
+/* ---------- NEW STATE banner (hanko stamp) ---------- */
+
+[app="app.roadtrip"] .banner {
+    left: 130px;
+    top: 100px;
+    width: 540px;
+    height: 190px;
+    background: rgba(12, 11, 16, 0.96);
+    border-color: #c8102e;
+}
+
+[app="app.roadtrip"] .banner .k-stamp {
+    left: 30px;
+    top: 26px;
+    width: 120px;
+    height: 136px;
+    font-size: 54px;
+    line-height: 62px;
+    padding-top: 4px;
+    box-sizing: border-box;
+}
+
+[app="app.roadtrip"] .banner .bt {
+    position: absolute;
+    left: 186px;
+    top: 26px;
+    right: 20px;
+}
+
+[app="app.roadtrip"] .banner .bt span {
+    font-size: 30px;
+    color: #c8102e;
+}
+
+[app="app.roadtrip"] .banner .bt i {
+    font-style: normal;
+    font-family: 'KodoDisplay', sans-serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: #d4a857;
+    margin-left: 12px;
+}
+
+[app="app.roadtrip"] .banner .bt b {
+    display: block;
+    font-weight: normal;
+    font-size: 46px;
+    line-height: 66px;
+}
+
+[app="app.roadtrip"] .banner .bt em {
+    font-style: normal;
+    font-family: 'KodoDisplay', sans-serif;
+    font-size: 20px;
+    color: #8c8696;
+}
+
+/* ---------- RECORDS page ---------- */
 
 [app="app.roadtrip"] .cell {
-    display: inline-block;
-    vertical-align: top;
-    width: 48%;
-    height: 160px;
+    width: 300px;
+    height: 118px;
+    padding: 14px 0 0 20px;
 }
 
-[app="app.roadtrip"] .cell span {
-    display: block;
-    font-size: 18px;
-    letter-spacing: 3px;
-    color: #8a8a8a;
-}
+[app="app.roadtrip"] .c1 { left: 80px; top: 80px; }
+[app="app.roadtrip"] .c2 { left: 410px; top: 80px; }
+[app="app.roadtrip"] .c3 { left: 80px; top: 222px; }
+[app="app.roadtrip"] .c4 { left: 410px; top: 222px; }
 
 [app="app.roadtrip"] .cell b {
     display: block;
-    font-size: 64px;
-    line-height: 80px;
+    font-weight: normal;
+    font-size: 44px;
+    line-height: 58px;
 }
 
-[app="app.roadtrip"] .cell em {
+[app="app.roadtrip"] .cell b em {
     font-style: normal;
-    font-size: 28px;
-    color: #8a8a8a;
+    font-size: 18px;
+    color: #8c8696;
     margin-left: 6px;
 }
 
-[app="app.roadtrip"] .cell i {
-    display: block;
-    font-style: normal;
-    font-size: 20px;
+[app="app.roadtrip"] .cell .sub {
+    font-size: 16px;
     color: #c8102e;
 }
 
@@ -83,26 +138,8 @@
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 16px;
-    font-size: 18px;
-    color: #666;
-}
-
-[app="app.roadtrip"] .banner {
-    position: absolute;
-    left: 150px;
-    right: 150px;
-    top: 90px;
-    padding: 24px 0;
-    background: #c8102e;
-    border-radius: 16px;
-    font-size: 54px;
-    font-weight: bold;
-}
-
-[app="app.roadtrip"] .banner small {
-    display: block;
-    font-size: 22px;
-    font-weight: normal;
-    letter-spacing: 3px;
+    bottom: 22px;
+    text-align: center;
+    font-size: 16px;
+    color: #8c8696;
 }

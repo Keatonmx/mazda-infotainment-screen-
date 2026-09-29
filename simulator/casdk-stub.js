@@ -70,9 +70,22 @@ var CustomApplicationsHandler = {
         app.canvas = [canvas];
         document.getElementById('title').textContent = app.settings.title;
 
+        var base = '../apps/' + id + '/';
+
+        // the shared theme is copied into each app on the USB; here it loads from the repo's theme/ folder
+        function resolve(file) {
+            return file.indexOf('theme/') === 0 ? '../' + file : base + file;
+        }
+
+        ((app.require && app.require.css) || []).forEach(function(file) {
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = resolve(file);
+            document.head.appendChild(link);
+        });
+
         // like the real CASDK: load the app's extra scripts before created()
         var scripts = (app.require && app.require.js) || [];
-        var base = '../apps/' + id + '/';
         (function next(i) {
             if (i >= scripts.length) {
                 app.created();
@@ -81,7 +94,7 @@ var CustomApplicationsHandler = {
                 return;
             }
             var tag = document.createElement('script');
-            tag.src = base + scripts[i];
+            tag.src = resolve(scripts[i]);
             tag.onload = function() { next(i + 1); };
             document.head.appendChild(tag);
         })(0);

@@ -8,7 +8,6 @@
     var APPS = {'app.gtdash': 'GT Dash', 'app.knobbrick': 'Knob Breakout', 'app.roadtrip': 'Road Trip', 'app.carpet': 'Kodo (car pet)', 'app.companion': 'Akari (companion)'};
     var APP = (location.search.match(/app=([\w.]+)/) || [])[1];
     if (!APPS[APP]) APP = 'app.gtdash';
-    document.write('<link rel="stylesheet" href="../apps/' + APP + '/app.css">');
 </script>
 <style>
     body { margin: 0; padding: 16px; background: #15161a; color: #ddd; font-family: sans-serif; }

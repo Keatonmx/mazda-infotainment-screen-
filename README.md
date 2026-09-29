@@ -2,16 +2,20 @@
 
 Custom apps and guides for a 2016 Mazda 3 Grand Touring (Mazda Connect, 7" screen, commander knob, Bose).
 
+Everything shares one look: **魂動 KODO**, Japan × Mazda in an anime title-card style. It uses sumi-ink black,
+Soul Red and gold, a seigaiha wave pattern, rising-sun disks, slanted title ribbons, bold Japanese titles with
+English subtitles, manga speech bubbles and hanko stamps. See [theme/kodo.css](theme/kodo.css).
+
 ## What's here
 
 | | What it does |
 |---|---|
-| **[GT Dash](apps/app.gtdash)** | Real coolant temperature and warm-up status (the car has no gauge), trip info, oil-change countdown |
-| **[Knob Breakout](apps/app.knobbrick)** | Brick breaker played by spinning the commander knob. Parked only. |
-| **[Road Trip](apps/app.roadtrip)** | Colors in each US state you drive in, with a "NEW STATE!" banner, farthest-from-home and highest-point records |
-| **[Kodo](apps/app.carpet)** | A car pet whose mood follows how the car is treated: smooth driving, warm-ups, fuel, oil changes, weather. Levels up with miles. |
-| **[Akari](apps/app.companion)** | An anime chibi companion who gets madder the faster you drive: happy, pouty, puffed cheeks, shouting, then full meltdown with steam at 85+ mph. Pat her head while parked. |
-| **[Startup greeting](greeting)** | A card at startup: good morning, holidays, your birthday, odometer milestones, cold-engine and oil reminders |
+| **[GT Dash 計器盤](apps/app.gtdash)** | Real coolant temperature and warm-up status (the car has no gauge), trip info, oil-change countdown |
+| **[Knob Breakout ブロック崩し](apps/app.knobbrick)** | Brick breaker played by spinning the commander knob. Parked only. |
+| **[Road Trip 旅の記録](apps/app.roadtrip)** | Colors in each US state you drive in, with a "NEW STATE!" banner, farthest-from-home and highest-point records |
+| **[Kodo こどう](apps/app.carpet)** | A car pet whose mood follows how the car is treated: smooth driving, warm-ups, fuel, oil changes, weather. Levels up with miles. |
+| **[Akari あかり](apps/app.companion)** | An anime chibi companion who gets madder the faster you drive: happy, pouty, puffed cheeks, shouting, then full meltdown with steam at 85+ mph. Pat her head while parked. |
+| **[Startup greeting おはよう](greeting)** | A card at startup: good morning, holidays, your birthday, odometer milestones, cold-engine and oil reminders |
 | **[Startup sound](docs/STARTUP_SOUND.md)** | A short chime (or your own MP3) with the greeting |
 
 Guides:
@@ -41,13 +45,20 @@ Everything runs in the simulator and has automated checks: Road Trip state looku
 
 - Vehicle data updates about **once per second**: fine for temperatures, levels and GPS, too slow for shift lights.
 - CASDK only sends data to the app on screen, so Kodo and Road Trip only track while they're open.
-- The CMU's browser is Opera Presto (about 2012), so everything is plain ES5 JavaScript with simple CSS.
+- The CMU's browser is Opera Presto (about 2012), so everything is plain ES5 JavaScript with simple CSS
+  (no CSS variables or flexbox; `-o-` prefixes on transforms and gradients).
+- Japanese text uses bundled fonts (Dela Gothic One and M PLUS Rounded 1c, both SIL Open Font License)
+  trimmed to the ~200 characters the apps use, so nothing depends on fonts installed on the car.
+  **After changing any Japanese text, re-run `node tools/build-theme.js`**, or new characters show as empty boxes.
 - Games and petting lock while the car is moving.
 
 ## Rebuilding generated files
 
 ```
-npm i us-atlas@3 topojson-client@3 topojson-simplify@3 d3-geo@3 lamejs@1.2.1
+npm i us-atlas@3 topojson-client@3 topojson-simplify@3 d3-geo@3 lamejs@1.2.1 playwright
+pip install fonttools
+node tools/build-theme.js     # theme fonts (subset to the characters used), wave pattern, speed lines
+python3 tools/check-theme-glyphs.py   # fails if any character used is missing from the fonts
 node tools/build-states.js    # Road Trip state map data
 node tools/make-chime.js      # default startup chime
 node tools/make-companion-sprites.js   # Akari placeholder sprites (needs playwright)

@@ -18,12 +18,12 @@ CustomApplicationsHandler.register("app.carpet", new CustomApplication({
 
     require: {
         js: [],
-        css: ['app.css'],
+        css: ['theme/kodo.css', 'app.css'],
         images: {}
     },
 
     settings: {
-        title: 'Kodo',
+        title: 'Kodo',  // こどう 魂動
         statusbar: true,
         statusbarIcon: false,
         hasLeftButton: false,
@@ -38,25 +38,26 @@ CustomApplicationsHandler.register("app.carpet", new CustomApplication({
     MILES_PER_LEVEL: 250,
     LOW_FUEL: 12,
 
+    // [Japanese, English]
     LINES: {
-        sick:     ['I feel yucky... oil change?', 'My oil is overdue!', 'Fresh oil please...'],
-        hungry:   ['So hungry... gas station?', 'Tank is almost empty!', 'Feed me fuel!'],
-        ouch:     ['Whoa, easy!', 'Ouch! Gentle please', 'That was rough!'],
-        coldrev:  ['Brr, let me warm up first!', 'Too many revs, I\'m still cold!'],
-        sleepy:   ['Zzz... late drive?', 'So sleepy...', 'Night owl mode'],
-        cold:     ['Brrr, it\'s freezing!', 'Scarf weather!', 'Cozy heater time'],
-        hot:      ['Phew, it\'s hot!', 'A/C on please!', 'Melting...'],
-        ecstatic: ['Best. Drive. Ever!', 'Zoom-zoom!', 'You drive so smooth!'],
-        happy:    ['Nice and smooth!', 'Happy to ride along', 'Where to next?'],
-        meh:      ['Doing okay.', 'Smooth driving makes me happy', 'Could use a pat...'],
-        grumpy:   ['Hmph.', 'Too many hard stops...', 'Be nicer to me!'],
-        petted:   ['Hehe!', 'Aww, thanks!', 'Love you too!']
+        sick:     [['気持ち悪い…', 'I feel yucky... oil change?'], ['オイル交換して！', 'My oil is overdue!'], ['新しいオイルがほしい…', 'Fresh oil please...']],
+        hungry:   [['お腹すいた…', 'So hungry... gas station?'], ['ガソリンがない！', 'Tank is almost empty!'], ['燃料ちょうだい！', 'Feed me fuel!']],
+        ouch:     [['わっ！', 'Whoa, easy!'], ['いたっ！', 'Ouch! Gentle please'], ['荒いよ～', 'That was rough!']],
+        coldrev:  [['さむい！まだ冷えてる！', 'Let me warm up first!'], ['回しすぎ！', 'Too many revs, I\'m still cold!']],
+        sleepy:   [['ねむい…', 'Zzz... late drive?'], ['おやすみ…', 'So sleepy...'], ['夜ふかしだね', 'Night owl mode']],
+        cold:     [['さむっ！', 'Brrr, it\'s freezing!'], ['マフラーの季節', 'Scarf weather!'], ['ヒーターつけて', 'Cozy heater time']],
+        hot:      [['あつい～', 'Phew, it\'s hot!'], ['エアコンつけて！', 'A/C on please!'], ['溶けちゃう…', 'Melting...']],
+        ecstatic: [['最高のドライブ！', 'Best. Drive. Ever!'], ['ズーム・ズーム！', 'Zoom-zoom!'], ['運転上手！', 'You drive so smooth!']],
+        happy:    [['いい感じ！', 'Nice and smooth!'], ['一緒に行こう', 'Happy to ride along'], ['次はどこ？', 'Where to next?']],
+        meh:      [['まあまあ', 'Doing okay.'], ['なめらかにね', 'Smooth driving makes me happy'], ['なでて…', 'Could use a pat...']],
+        grumpy:   [['ふん！', 'Hmph.'], ['急ブレーキ多すぎ…', 'Too many hard stops...'], ['やさしくして！', 'Be nicer to me!']],
+        petted:   [['えへへ', 'Hehe!'], ['ありがとう！', 'Aww, thanks!'], ['だいすき！', 'Love you too!']]
     },
 
     created: function() {
         var root = this.canvas[0];
         this.el = document.createElement('div');
-        this.el.className = 'kodo';
+        this.el.className = 'k-root kodo';
         root.appendChild(this.el);
 
         this.data = {};
@@ -246,22 +247,25 @@ CustomApplicationsHandler.register("app.carpet", new CustomApplication({
     build: function() {
         this.el.innerHTML =
             '<div class="stage">' +
-                '<div class="bubble"></div>' +
+                '<div class="k-bubble bubble"></div>' +
                 '<div class="pet">' +
                     '<div class="body"><div class="belly"></div>' +
                         '<div class="eye l"><i></i></div><div class="eye r"><i></i></div>' +
                         '<div class="cheek l"></div><div class="cheek r"></div>' +
                         '<div class="mouth"></div>' +
+                        '<div class="band"><i></i></div><div class="band-tail"></div>' +
                         '<div class="scarf"></div><div class="drop"></div><div class="zzz">z Z</div>' +
                     '</div>' +
                     '<div class="foot l"></div><div class="foot r"></div>' +
                     '<div class="heart">&#10084;</div>' +
                 '</div>' +
-                '<div class="shadow"></div>' +
+                '<div class="zabuton"></div>' +
             '</div>' +
-            '<div class="meter"><span>MOOD</span><div class="bar"><div></div></div>' +
-                '<span class="lvl"></span></div>' +
-            '<div class="stats"></div>';
+            '<div class="meter"><span class="k-label">気分<i>MOOD</i></span><div class="k-bar bar"><div></div></div>' +
+                '<span class="lvl k-num"></span></div>' +
+            '<div class="stats"></div>' +
+            '<div class="k-ribbon"><b>こどう</b><i>KODO</i></div>' +
+            '<div class="k-side">魂<br>動</div>';
         this.$ = {
             stage: this.el.getElementsByClassName('stage')[0],
             pet: this.el.getElementsByClassName('pet')[0],
@@ -276,9 +280,10 @@ CustomApplicationsHandler.register("app.carpet", new CustomApplication({
         if (!this.$) return;
         var mood = this.mood(), lines = this.LINES[mood], lv = this.level();
         this.$.pet.className = 'pet face-' + this.FACE[mood] + ' mood-' + mood;
-        this.$.bubble.innerHTML = lines[this.lineIndex % lines.length];
+        var line = lines[this.lineIndex % lines.length];
+        this.$.bubble.innerHTML = '<b>' + line[0] + '</b><i>' + line[1] + '</i>';
         this.$.fill.style.width = Math.round(this.happiness()) + '%';
-        this.$.lvl.innerHTML = 'LV ' + lv.level;
+        this.$.lvl.innerHTML = 'Lv.' + lv.level;
 
         var showStats = this.page === 1;
         this.$.stage.style.display = showStats ? 'none' : 'block';
@@ -286,15 +291,16 @@ CustomApplicationsHandler.register("app.carpet", new CustomApplication({
         if (showStats) {
             var dist = lv.miles === undefined ? '--' : Math.round(this.isMetric() ? lv.miles / 0.621371 : lv.miles).toLocaleString();
             this.$.stats.innerHTML =
-                this.cell('LEVEL', lv.level, Math.round(lv.into * 100) + '% to next') +
-                this.cell('TOGETHER', dist, this.isMetric() ? 'km driven' : 'miles driven') +
-                this.cell('MOOD', Math.round(this.happiness()), 'out of 100') +
-                this.cell('HARSH MOMENTS', this.get('harshTotal', 0), 'since we met');
+                this.cell('c1', 'レベル', 'LEVEL', lv.level, Math.round(lv.into * 100) + '% to next') +
+                this.cell('c2', '一緒に', 'TOGETHER', dist, this.isMetric() ? 'km driven' : 'miles driven') +
+                this.cell('c3', '気分', 'MOOD', Math.round(this.happiness()), 'out of 100') +
+                this.cell('c4', '荒い運転', 'HARSH MOMENTS', this.get('harshTotal', 0), 'since we met');
         }
     },
 
-    cell: function(label, value, sub) {
-        return '<div class="cell"><span>' + label + '</span><b>' + value + '</b><i>' + sub + '</i></div>';
+    cell: function(pos, jp, en, value, sub) {
+        return '<div class="k-card cell ' + pos + '"><div class="k-label">' + jp + '<i>' + en + '</i></div>' +
+            '<b class="k-num">' + value + '</b><span class="sub">' + sub + '</span></div>';
     },
 
     // 4 frames per second: blink, bob, hearts, and rotate speech lines every ~12 s

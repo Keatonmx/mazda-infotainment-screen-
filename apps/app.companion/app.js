@@ -16,12 +16,12 @@ CustomApplicationsHandler.register("app.companion", new CustomApplication({
 
     require: {
         js: [],
-        css: ['app.css'],
+        css: ['theme/kodo.css', 'app.css'],
         images: {}
     },
 
     settings: {
-        title: 'Akari',
+        title: 'Akari',  // あかり 灯
         statusbar: true,
         statusbarIcon: false,
         hasLeftButton: false,
@@ -35,24 +35,30 @@ CustomApplicationsHandler.register("app.companion", new CustomApplication({
     CELL: 240,
     MOVING_KMH: 3,
 
+    // [Japanese, English]
     LINES: [
-        ['Ready when you are!', 'Let\'s go for a drive~', 'Buckle up!'],
-        ['Nice and easy~', 'This is nice!', 'Cruising~ ♪'],
-        ['Hmm... bit fast?', 'Watch the speed...', '...'],
-        ['Hey! Slow down!', 'Hmph! Too fast!', 'I\'m not happy!'],
-        ['SLOW DOWN!!', 'I SAID SLOW DOWN!', 'Are you kidding me?!'],
-        ['WAAAH! TOO FAST!!', 'I\'M TELLING YOUR MOM!', 'BRAKES! BRAKES!!']
+        [['いつでもいいよ！', 'Ready when you are!'], ['ドライブ行こう～', 'Let\'s go for a drive~'], ['シートベルトしてね', 'Buckle up!']],
+        [['ゆっくりね♪', 'Nice and easy~'], ['気持ちいい～', 'This is nice!'], ['のんびり～♪', 'Cruising~']],
+        [['ちょっと速くない…？', 'Hmm... bit fast?'], ['スピード見てる？', 'Watch the speed...'], ['……', '...']],
+        [['もう！遅くして！', 'Hey! Slow down!'], ['ぷんぷん！', 'Hmph! Too fast!'], ['怒るよ！', 'I\'m not happy!']],
+        [['スピード落として！！', 'SLOW DOWN!!'], ['聞いてるの？！', 'I SAID SLOW DOWN!'], ['信じられない！', 'Are you kidding me?!']],
+        [['きゃあああ！！', 'WAAAH! TOO FAST!!'], ['ママに言うからね！', 'I\'M TELLING YOUR MOM!'], ['ブレーキ！ブレーキ！', 'BRAKES! BRAKES!!']]
     ],
-    PAT_LINES: ['Hehe~', 'Ehehe, thanks!', 'W-what are you doing?!'],
+    PAT_LINES: [['えへへ～', 'Hehe~'], ['ありがと！', 'Ehehe, thanks!'], ['な、なにするの？！', 'W-what are you doing?!']],
 
     created: function() {
         var root = this.canvas[0];
         this.el = document.createElement('div');
-        this.el.className = 'ak';
+        this.el.className = 'k-root ak';
         this.el.innerHTML =
-            '<div class="bubble"></div>' +
+            '<div class="k-sun"></div>' +
+            '<div class="k-speedlines"></div>' +
             '<div class="sprite"></div>' +
-            '<div class="hud"><span class="speed"></span><span class="meter"></span></div>';
+            '<div class="k-bubble bubble"></div>' +
+            '<div class="hud"><span class="k-label">速度<i>SPEED</i></span><b class="speed k-num"></b>' +
+                '<span class="k-label anger">怒り<i>ANGER</i></span><span class="meter"></span></div>' +
+            '<div class="k-ribbon"><b>あかり</b><i>AKARI</i></div>' +
+            '<div class="k-side">相<br>棒</div>';
         root.appendChild(this.el);
 
         this.$ = {
@@ -154,9 +160,10 @@ CustomApplicationsHandler.register("app.companion", new CustomApplication({
     render: function() {
         if (!this.$) return;
         var lines = this.patting() ? this.PAT_LINES : this.LINES[this.level];
-        this.$.bubble.innerHTML = lines[this.line % lines.length];
-        this.$.bubble.className = 'bubble lv' + this.level + (this.patting() ? ' pat' : '');
-        this.el.className = 'ak lv' + this.level;
+        var line = lines[this.line % lines.length];
+        this.$.bubble.innerHTML = '<b>' + line[0] + '</b><i>' + line[1] + '</i>';
+        this.$.bubble.className = 'k-bubble bubble lv' + this.level + (this.patting() ? ' pat' : '');
+        this.el.className = 'k-root ak lv' + this.level + (this.patting() ? ' patting' : '');
         this.drawFrame();
         this.renderHud();
     },
@@ -164,7 +171,7 @@ CustomApplicationsHandler.register("app.companion", new CustomApplication({
     renderHud: function() {
         var unit = this.getRegion() === 'na' ? ' mph' : ' km/h';
         var shown = this.getRegion() === 'na' ? this.mph : (this.kmh || 0);
-        this.$.speed.innerHTML = Math.round(shown) + unit;
+        this.$.speed.innerHTML = Math.round(shown) + '<em>' + unit + '</em>';
         var marks = '';
         for (var i = 1; i <= 5; i++) marks += '<i class="' + (i <= this.level ? 'on' : '') + '"></i>';
         this.$.meter.innerHTML = marks;

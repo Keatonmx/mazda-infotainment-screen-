@@ -1,18 +1,37 @@
-/* Akari: one sprite sheet, frames picked with background-position. No CSS animations or scaling. */
+/* Akari あかり 灯, on the shared KODO theme. One sprite sheet, frames picked with background-position. */
 
 [app="app.companion"] {
-    background: #000;
+    background: #0c0b10;
 }
 
-[app="app.companion"] .ak {
-    position: absolute;
-    top: 64px;
-    left: 0;
-    width: 800px;
-    height: 416px;
-    overflow: hidden;
-    font-family: sans-serif;
-    color: #f2f2f2;
+/* deep crimson sun with a gold ring, dark enough that her red jacket stands out */
+[app="app.companion"] .k-sun {
+    left: 105px;
+    top: 85px;
+    background: #4a0814;
+    background: -o-radial-gradient(40% 35%, circle, #6e0c1f, #3a0610 75%);
+    background: radial-gradient(circle at 40% 35%, #6e0c1f, #3a0610 75%);
+    border: 4px solid #d4a857;
+    width: 242px;
+    height: 242px;
+}
+
+/* speed lines only once she's mad */
+[app="app.companion"] .k-speedlines {
+    display: none;
+}
+
+[app="app.companion"] .lv4 .k-speedlines,
+[app="app.companion"] .lv5 .k-speedlines {
+    display: block;
+}
+
+[app="app.companion"] .lv4 .k-speedlines {
+    opacity: 0.5;
+}
+
+[app="app.companion"] .patting .k-speedlines {
+    display: none;
 }
 
 [app="app.companion"] .sprite {
@@ -25,65 +44,93 @@
     background-repeat: no-repeat;
 }
 
+/* ---------- manga bubble (shape from .k-bubble) ---------- */
+
 [app="app.companion"] .bubble {
-    position: absolute;
-    left: 390px;
-    top: 110px;
+    left: 400px;
+    top: 96px;
     width: 330px;
-    padding: 22px 20px;
-    background: #f2f2f2;
+}
+
+[app="app.companion"] .bubble.lv3 { background: #ffe8b8; }
+[app="app.companion"] .bubble.lv3:after { border-right-color: #ffe8b8; }
+
+[app="app.companion"] .bubble.lv4 { background: #ffc2c2; }
+[app="app.companion"] .bubble.lv4:after { border-right-color: #ffc2c2; }
+
+/* furious: red shout bubble, tilted */
+[app="app.companion"] .bubble.lv5 {
+    background: #c8102e;
+    color: #fff;
+    -o-transform: rotate(-3deg);
+    transform: rotate(-3deg);
+}
+
+[app="app.companion"] .bubble.lv5:after { border-right-color: #c8102e; }
+[app="app.companion"] .bubble.lv5 b { font-size: 30px; }
+[app="app.companion"] .bubble.lv5 i { color: #ffd6d6; }
+
+[app="app.companion"] .bubble.pat {
+    background: #ffe3ec;
     color: #111;
-    border-radius: 22px;
-    font-size: 28px;
-    line-height: 36px;
-    text-align: center;
+    -o-transform: none;
+    transform: none;
 }
 
-[app="app.companion"] .bubble.lv3 { background: #ffe1a6; }
-[app="app.companion"] .bubble.lv4 { background: #ffb3b3; font-weight: bold; }
-[app="app.companion"] .bubble.lv5 { background: #ff4d5e; color: #fff; font-weight: bold; font-size: 32px; }
-[app="app.companion"] .bubble.pat { background: #ffd6e7; color: #111; font-weight: normal; font-size: 28px; }
+[app="app.companion"] .bubble.pat:after { border-right-color: #ffe3ec; }
+[app="app.companion"] .bubble.pat i { color: #555; }
 
-/* little tail pointing at her */
-[app="app.companion"] .bubble:before {
-    content: '';
-    position: absolute;
-    left: -18px;
-    top: 30px;
-    border-top: 12px solid transparent;
-    border-bottom: 12px solid transparent;
-    border-right: 20px solid #f2f2f2;
-}
-
-[app="app.companion"] .bubble.lv3:before { border-right-color: #ffe1a6; }
-[app="app.companion"] .bubble.lv4:before { border-right-color: #ffb3b3; }
-[app="app.companion"] .bubble.lv5:before { border-right-color: #ff4d5e; }
-[app="app.companion"] .bubble.pat:before { border-right-color: #ffd6e7; }
+/* ---------- speed + anger meter ---------- */
 
 [app="app.companion"] .hud {
     position: absolute;
-    left: 390px;
-    top: 290px;
-    width: 370px;
-    text-align: center;
+    left: 400px;
+    top: 262px;
+    width: 340px;
+    height: 110px;
+}
+
+[app="app.companion"] .hud .k-label {
+    display: block;
 }
 
 [app="app.companion"] .speed {
     display: block;
-    font-size: 30px;
-    color: #8a8a8a;
-    margin-bottom: 10px;
+    font-weight: normal;
+    font-size: 40px;
+    line-height: 50px;
+}
+
+[app="app.companion"] .speed em {
+    font-style: normal;
+    font-size: 18px;
+    color: #8c8696;
+}
+
+[app="app.companion"] .anger {
+    position: absolute;
+    left: 170px;
+    top: 0;
+}
+
+[app="app.companion"] .meter {
+    position: absolute;
+    left: 170px;
+    top: 34px;
+    white-space: nowrap;
 }
 
 [app="app.companion"] .meter i {
     display: inline-block;
-    width: 44px;
-    height: 12px;
-    margin: 0 4px;
-    border-radius: 6px;
-    background: #26272c;
+    width: 18px;
+    height: 18px;
+    margin: 0 6px 0 0;
+    background: #26222e;
+    border: 1px solid #3a3444;
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 
-[app="app.companion"] .meter i.on { background: #ffb020; }
-[app="app.companion"] .lv4 .meter i.on { background: #ff6a3d; }
-[app="app.companion"] .lv5 .meter i.on { background: #ff2d45; }
+[app="app.companion"] .meter i.on { background: #d4a857; border-color: #d4a857; }
+[app="app.companion"] .lv4 .meter i.on { background: #ff6a3d; border-color: #ff6a3d; }
+[app="app.companion"] .lv5 .meter i.on { background: #ff2d45; border-color: #ff2d45; }

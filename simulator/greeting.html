@@ -76,6 +76,7 @@ Saved data from the other apps (oil change, states, Kodo) is picked up automatic
         MZD_GREETING_CONFIG.name = document.getElementById('name').value;
         MZD_GREETING_CONFIG.birthday = document.getElementById('birthday').value;
         MZD_GREETING_CONFIG.showSeconds = 30;
+        MZD_GREETING_CONFIG.assets = '../theme/';
         var old = document.getElementById('mzd-greeting');
         if (old) old.parentNode.removeChild(old);
         MzdGreeting.show(MzdGreeting.build(new Date(when.value), MzdGreeting.readData()));

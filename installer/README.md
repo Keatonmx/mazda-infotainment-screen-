@@ -1,6 +1,6 @@
 # Installing on the car
 
-This installs GT Dash, Knob Breakout, Road Trip, Kodo, the startup greeting and the startup sound in one pass,
+This installs GT Dash, Knob Breakout, Road Trip, Kodo, Akari, the startup greeting and the startup sound in one pass,
 using the same USB method MZD-AIO-TI uses.
 
 > **Not yet tested on a real car.** The installer was dry-run against a fake copy of the CMU's folders
@@ -37,7 +37,9 @@ apps/app.gtdash/ ...
 apps/app.knobbrick/ ...
 apps/app.roadtrip/ ...
 apps/app.carpet/ ...
+apps/app.companion/ ...
 greeting/mzd-greeting.js
+greeting/theme/ ...
 greeting/sounds/startup.mp3
 ```
 
@@ -50,6 +52,7 @@ INSTALL_GTDASH=1
 INSTALL_KNOBBRICK=1
 INSTALL_ROADTRIP=1
 INSTALL_KODO=1
+INSTALL_COMPANION=1
 INSTALL_GREETING=1
 INSTALL_SOUND=1
 UNINSTALL=0
@@ -73,6 +76,8 @@ and `metric` or `imperial`.
 |---|---|
 | Apps | `/tmp/mnt/resources/aio/mzd-casdk/apps/` (AIO's CASDK apps folder), listed in `apps.js` there |
 | Greeting | `/jci/opera/opera_dir/userjs/mzd-greeting.js` (runs once when the interface loads) |
+| Greeting fonts + pattern | `/tmp/mnt/resources/aio/mzd-greeting/` |
+| Theme (fonts, patterns, `kodo.css`) | a `theme/` folder inside each app |
 | Sound | `/tmp/mnt/resources/aio/sounds/startup.mp3` |
 | Sound fallback (no AIO Tweaks app) | one line in `/jci/scripts/stage_wifi.sh`, tagged `mzd-greeting-sound` |
 

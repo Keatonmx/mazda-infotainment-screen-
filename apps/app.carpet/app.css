@@ -1,18 +1,7 @@
-/* Kodo: built from plain boxes and rounded corners. No images, shadows or CSS animations. */
+/* Kodo こどう: built from plain boxes and rounded corners on the shared KODO theme. No images or CSS animations. */
 
 [app="app.carpet"] {
     background: #000;
-}
-
-[app="app.carpet"] .kodo {
-    position: absolute;
-    top: 64px;
-    left: 0;
-    width: 800px;
-    height: 416px;
-    font-family: sans-serif;
-    color: #f2f2f2;
-    overflow: hidden;
 }
 
 [app="app.carpet"] .stage {
@@ -23,25 +12,22 @@
     height: 350px;
 }
 
-/* speech bubble */
+/* speech bubble (shape comes from .k-bubble) */
 [app="app.carpet"] .bubble {
-    position: absolute;
-    left: 480px;
-    top: 50px;
-    width: 250px;
-    padding: 16px 18px;
-    background: #f2f2f2;
-    color: #111;
-    border-radius: 18px;
-    font-size: 24px;
-    line-height: 30px;
-    text-align: center;
+    left: 500px;
+    top: 70px;
+    width: 220px;
+}
+
+[app="app.carpet"] .bubble b {
+    font-size: 26px;
+    line-height: 34px;
 }
 
 /* the pet */
 [app="app.carpet"] .pet {
     position: absolute;
-    left: 290px;
+    left: 220px;
     width: 220px;
     height: 330px;
 }
@@ -125,14 +111,49 @@
 [app="app.carpet"] .foot.l { left: 40px; }
 [app="app.carpet"] .foot.r { left: 124px; }
 
-[app="app.carpet"] .shadow {
+/* zabuton floor cushion */
+[app="app.carpet"] .zabuton {
     position: absolute;
-    left: 320px;
+    left: 225px;
     top: 290px;
-    width: 160px;
+    width: 210px;
+    height: 30px;
+    background: #7d0a1c;
+    border: 3px solid #d4a857;
+    border-radius: 14px;
+}
+
+/* hachimaki headband: white band with a red sun, tails trailing to the side */
+[app="app.carpet"] .band {
+    position: absolute;
+    left: 6px;
+    top: 26px;
+    width: 188px;
     height: 16px;
-    background: #1a1a1a;
-    border-radius: 80px;
+    background: #f4ede1;
+    border-radius: 4px;
+}
+
+[app="app.carpet"] .band i {
+    position: absolute;
+    left: 84px;
+    top: 1px;
+    width: 14px;
+    height: 14px;
+    border-radius: 7px;
+    background: #c8102e;
+}
+
+[app="app.carpet"] .band-tail {
+    position: absolute;
+    left: 188px;
+    top: 30px;
+    width: 30px;
+    height: 10px;
+    background: #f4ede1;
+    border-radius: 0 6px 6px 0;
+    -o-transform: rotate(20deg);
+    transform: rotate(20deg);
 }
 
 /* faces */
@@ -252,67 +273,51 @@
 /* mood meter */
 [app="app.carpet"] .meter {
     position: absolute;
-    left: 60px;
-    right: 60px;
-    bottom: 22px;
+    left: 70px;
+    right: 70px;
+    bottom: 24px;
     height: 30px;
     line-height: 30px;
-    font-size: 18px;
-    letter-spacing: 3px;
-    color: #8a8a8a;
 }
 
 [app="app.carpet"] .meter .bar {
     position: absolute;
-    left: 90px;
+    left: 150px;
     right: 110px;
-    top: 10px;
-    height: 12px;
-    background: #222;
-    border-radius: 6px;
-    overflow: hidden;
+    top: 9px;
 }
 
 [app="app.carpet"] .meter .bar div {
-    height: 100%;
-    background: #3ddc84;
+    background: #79c267;
 }
 
 [app="app.carpet"] .meter .lvl {
     position: absolute;
     right: 0;
-    color: #f2f2f2;
+    font-size: 24px;
+    color: #d4a857;
 }
 
 /* stats page */
-[app="app.carpet"] .stats {
-    padding-top: 26px;
-    text-align: center;
-}
-
 [app="app.carpet"] .cell {
-    display: inline-block;
-    vertical-align: top;
-    width: 48%;
-    height: 150px;
+    width: 300px;
+    height: 118px;
+    padding: 14px 0 0 20px;
 }
 
-[app="app.carpet"] .cell span {
-    display: block;
-    font-size: 18px;
-    letter-spacing: 3px;
-    color: #8a8a8a;
-}
+[app="app.carpet"] .c1 { left: 80px; top: 80px; }
+[app="app.carpet"] .c2 { left: 410px; top: 80px; }
+[app="app.carpet"] .c3 { left: 80px; top: 222px; }
+[app="app.carpet"] .c4 { left: 410px; top: 222px; }
 
 [app="app.carpet"] .cell b {
     display: block;
-    font-size: 64px;
-    line-height: 80px;
+    font-weight: normal;
+    font-size: 48px;
+    line-height: 62px;
 }
 
-[app="app.carpet"] .cell i {
-    display: block;
-    font-style: normal;
-    font-size: 20px;
+[app="app.carpet"] .cell .sub {
+    font-size: 16px;
     color: #c8102e;
 }

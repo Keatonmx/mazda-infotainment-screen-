@@ -9,8 +9,12 @@ mkdir -p "${OUT}/apps" "${OUT}/greeting/sounds"
 cp "${ROOT}/installer/tweaks.sh" "${OUT}/"
 for APP in app.gtdash app.knobbrick app.roadtrip app.carpet app.companion; do
   cp -R "${ROOT}/apps/${APP}" "${OUT}/apps/"
+  mkdir -p "${OUT}/apps/${APP}/theme"
+  cp "${ROOT}"/theme/kodo.css "${ROOT}"/theme/*.woff "${ROOT}"/theme/*.ttf "${ROOT}"/theme/*.png "${OUT}/apps/${APP}/theme/"
 done
 cp "${ROOT}/greeting/mzd-greeting.js" "${OUT}/greeting/"
+mkdir -p "${OUT}/greeting/theme"
+cp "${ROOT}"/theme/*.woff "${ROOT}"/theme/*.ttf "${ROOT}"/theme/seigaiha.png "${OUT}/greeting/theme/"
 cp "${ROOT}/greeting/sounds/startup.mp3" "${OUT}/greeting/sounds/"
 echo "Built ${OUT}"
 echo "Now add from an MZD-AIO-TI USB: jci-autoupdate, cmu_dataretrieval.up, dataRetrieval_config.txt"

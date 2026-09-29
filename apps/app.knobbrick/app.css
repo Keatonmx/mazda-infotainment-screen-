@@ -1,63 +1,106 @@
-/* Knob Breakout: plain boxes, no shadows or animations, to stay fast on the CMU. */
+/* ブロック崩し Knob Breakout, on the shared KODO theme. Plain boxes, no animations, to stay fast on the CMU. */
 
 [app="app.knobbrick"] {
-    background: #000;
-}
-
-[app="app.knobbrick"] .bo {
-    position: absolute;
-    top: 64px;
-    left: 0;
-    width: 800px;
-    height: 416px;
-    overflow: hidden;
-    font-family: sans-serif;
-    color: #f2f2f2;
+    background: #0c0b10;
 }
 
 [app="app.knobbrick"] .bo > div {
     position: absolute;
 }
 
+/* ---------- score bar ---------- */
+
 [app="app.knobbrick"] .hud {
     top: 0;
     left: 0;
     right: 0;
     height: 40px;
+    background: #16141c;
+    border-bottom: 2px solid #c8102e;
+    white-space: nowrap;
+}
+
+[app="app.knobbrick"] .hud .title {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 40px;
     line-height: 40px;
+    padding: 0 26px 0 18px;
+    background: #c8102e;
+    color: #fff;
+    font-weight: normal;
     font-size: 20px;
-    letter-spacing: 2px;
-    color: #8a8a8a;
-    border-bottom: 1px solid #222;
-    text-align: center;
 }
 
 [app="app.knobbrick"] .hud span {
     display: inline-block;
-    width: 24%;
+    height: 40px;
+    line-height: 40px;
+    margin-left: 22px;
+    vertical-align: top;
 }
 
-[app="app.knobbrick"] .hud .lives {
-    color: #c8102e;
+[app="app.knobbrick"] .hud span:first-of-type {
+    margin-left: 190px;
 }
+
+[app="app.knobbrick"] .hud em {
+    font-style: normal;
+    font-size: 15px;
+    color: #d4a857;
+    margin-right: 8px;
+}
+
+[app="app.knobbrick"] .hud b {
+    font-weight: normal;
+    font-size: 22px;
+    color: #f4ede1;
+}
+
+[app="app.knobbrick"] .hud span i {
+    font-style: normal;
+    font-family: 'KodoDisplay', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #8c8696;
+    margin-left: 6px;
+}
+
+/* lives: small red diamonds */
+[app="app.knobbrick"] .hud .lives i {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 4px;
+    background: #c8102e;
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/* ---------- playfield ---------- */
 
 [app="app.knobbrick"] .brick {
     width: 90px;
     height: 22px;
     border-radius: 3px;
+    border-top: 2px solid rgba(255, 255, 255, 0.35);
+    box-sizing: border-box;
 }
 
-[app="app.knobbrick"] .row0 { background: #c8102e; }
-[app="app.knobbrick"] .row1 { background: #ff6a13; }
-[app="app.knobbrick"] .row2 { background: #ffb020; }
-[app="app.knobbrick"] .row3 { background: #3ddc84; }
-[app="app.knobbrick"] .row4 { background: #3d9bff; }
+[app="app.knobbrick"] .row0 { background: #c8102e; }   /* Soul Red */
+[app="app.knobbrick"] .row1 { background: #e8542e; }   /* shu vermilion */
+[app="app.knobbrick"] .row2 { background: #d4a857; }   /* kin gold */
+[app="app.knobbrick"] .row3 { background: #ffb7c5; }   /* sakura */
+[app="app.knobbrick"] .row4 { background: #5b8def; }   /* ai indigo */
 
 [app="app.knobbrick"] .paddle {
     width: 120px;
     height: 14px;
     border-radius: 7px;
-    background: #f2f2f2;
+    background: #f4ede1;
+    border-bottom: 3px solid #c8102e;
+    box-sizing: border-box;
 }
 
 [app="app.knobbrick"] .ball {
@@ -65,29 +108,46 @@
     height: 14px;
     border-radius: 7px;
     background: #fff;
+    border: 3px solid #c8102e;
+    box-sizing: border-box;
 }
+
+/* ---------- messages ---------- */
 
 [app="app.knobbrick"] .msg {
     left: 0;
     right: 0;
-    top: 230px;
+    top: 216px;
     text-align: center;
-    font-size: 56px;
-    font-weight: bold;
-    letter-spacing: 4px;
+}
+
+[app="app.knobbrick"] .msg b {
+    display: block;
+    font-weight: normal;
+    font-size: 58px;
+    line-height: 70px;
+    color: #fff;
 }
 
 [app="app.knobbrick"] .msg small {
-    display: block;
-    font-size: 22px;
-    font-weight: normal;
-    letter-spacing: 1px;
-    color: #aaa;
-    margin-top: 8px;
+    display: inline-block;
+    font-family: 'KodoDisplay', sans-serif;
+    font-size: 15px;
+    letter-spacing: 2px;
+    color: #f4ede1;
+    background: #c8102e;
+    padding: 8px 18px;
+    margin-top: 6px;
+}
+
+[app="app.knobbrick"] .ready .msg small {
+    background: rgba(22, 20, 28, 0.9);
+    border: 1px solid #d4a857;
+    color: #d4a857;
 }
 
 [app="app.knobbrick"] .locked .brick,
 [app="app.knobbrick"] .locked .paddle,
 [app="app.knobbrick"] .locked .ball {
-    opacity: 0.25;
+    opacity: 0.2;
 }

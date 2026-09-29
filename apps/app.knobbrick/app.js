@@ -15,12 +15,12 @@ CustomApplicationsHandler.register("app.knobbrick", new CustomApplication({
 
     require: {
         js: [],
-        css: ['app.css'],
+        css: ['theme/kodo.css', 'app.css'],
         images: {}
     },
 
     settings: {
-        title: 'Knob Breakout',
+        title: 'Knob Breakout',  // ブロック崩し
         statusbar: true,
         statusbarIcon: false,
         hasLeftButton: false,
@@ -46,7 +46,7 @@ CustomApplicationsHandler.register("app.knobbrick", new CustomApplication({
     created: function() {
         var root = this.canvas[0];
         this.el = document.createElement('div');
-        this.el.className = 'bo';
+        this.el.className = 'k-root bo';
         root.appendChild(this.el);
 
         this.hud = this.add('hud', '');
@@ -241,6 +241,10 @@ CustomApplicationsHandler.register("app.knobbrick", new CustomApplication({
 
     /* ---------- drawing ---------- */
 
+    stat: function(jp, en, value) {
+        return '<span><em class="k-jp">' + jp + '</em><b class="k-num">' + value + '</b><i>' + en + '</i></span>';
+    },
+
     draw: function() {
         this.paddle.style.left = Math.round(this.paddleX) + 'px';
         this.paddle.style.top = this.paddleY() + 'px';
@@ -248,19 +252,25 @@ CustomApplicationsHandler.register("app.knobbrick", new CustomApplication({
         this.ball.style.top = Math.round(this.by) + 'px';
         this.ball.style.display = this.state === 'over' ? 'none' : 'block';
 
+        // the frame loop calls draw() 30x a second; only rebuild text when something changed
+        var key = [this.score, this.level, this.lives, this.best, this.moving, this.state].join('|');
+        if (key === this.hudKey) return;
+        this.hudKey = key;
+
         var hearts = '';
-        for (var i = 0; i < this.lives; i++) hearts += '&#9679; ';
-        this.hud.innerHTML = '<span>SCORE ' + this.score + '</span>' +
-            '<span>LEVEL ' + this.level + '</span>' +
-            '<span class="lives">' + hearts + '</span>' +
-            '<span>BEST ' + this.best + '</span>';
+        for (var i = 0; i < this.lives; i++) hearts += '<i></i>';
+        this.hud.innerHTML = '<b class="k-jp title">ブロック崩し</b>' +
+            this.stat('得点', 'SCORE', this.score) +
+            this.stat('面', 'STAGE', this.level) +
+            '<span class="lives"><em class="k-jp">残機</em>' + hearts + '</span>' +
+            this.stat('最高', 'BEST', this.best);
 
         var msg = '';
-        if (this.moving) msg = 'PAUSED<small>Parked only - resumes when you stop</small>';
-        else if (this.state === 'ready') msg = '<small>Rotate knob to aim &middot; press to launch</small>';
-        else if (this.state === 'over') msg = 'GAME OVER<small>Press knob to play again</small>';
+        if (this.moving) msg = '<b class="k-jp">一時停止</b><small>PAUSED · PARKED ONLY · RESUMES WHEN YOU STOP</small>';
+        else if (this.state === 'ready') msg = '<small>ノブで狙え · ROTATE TO AIM · PRESS TO LAUNCH</small>';
+        else if (this.state === 'over') msg = '<b class="k-jp">ゲームオーバー</b><small>PRESS THE KNOB TO PLAY AGAIN</small>';
         this.message.innerHTML = msg;
         this.message.style.display = msg ? 'block' : 'none';
-        this.el.className = 'bo' + (this.moving ? ' locked' : '');
+        this.el.className = 'k-root bo' + (this.moving ? ' locked' : '') + (this.state === 'ready' ? ' ready' : '');
     }
 }));

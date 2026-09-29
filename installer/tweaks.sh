@@ -24,6 +24,7 @@ APP_DIR="/tmp/mnt/resources/aio/mzd-casdk/apps"
 APPS_JS="${APP_DIR}/apps.js"
 USERJS="/jci/opera/opera_dir/userjs"
 SOUND_DIR="/tmp/mnt/resources/aio/sounds"
+GREETING_ASSETS="/tmp/mnt/resources/aio/mzd-greeting"
 STAGE_WIFI="/jci/scripts/stage_wifi.sh"
 SOUND_MARK="mzd-greeting-sound"
 
@@ -93,6 +94,7 @@ then
     uninstall_app "${APP}"
   done
   rm -f "${USERJS}/mzd-greeting.js"
+  rm -rf "${GREETING_ASSETS}"
   rm -rf "${SOUND_DIR}"
   sed -i "/${SOUND_MARK}/d" "${STAGE_WIFI}"
   finish "CUSTOM APPS REMOVED"
@@ -132,6 +134,11 @@ then
   show_message "INSTALLING STARTUP GREETING..."
   cp -a "${MYDIR}/greeting/mzd-greeting.js" "${USERJS}/"
   chmod 777 "${USERJS}/mzd-greeting.js"
+  # theme fonts + wave pattern for the card
+  rm -rf "${GREETING_ASSETS}"
+  mkdir -p "${GREETING_ASSETS}"
+  cp -a "${MYDIR}"/greeting/theme/* "${GREETING_ASSETS}/"
+  chmod -R 777 "${GREETING_ASSETS}"
   log_message "installed greeting"
 fi
 

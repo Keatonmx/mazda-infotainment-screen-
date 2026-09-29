@@ -1,145 +1,253 @@
-/* GT Dash: 800x480 screen, statusbar on top. Keep effects cheap: no shadows, blur or animations. */
+/* GT Dash 計器盤, on the shared KODO theme (theme/kodo.css). */
 
 [app="app.gtdash"] {
-    background: #000;
+    background: #0c0b10;
 }
 
-[app="app.gtdash"] .gt {
+/* ---------- ENGINE 機関 ---------- */
+
+[app="app.gtdash"] .engine .k-sun {
+    left: 70px;
+    top: 86px;
+}
+
+[app="app.gtdash"] .engine .ring {
     position: absolute;
-    top: 64px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    color: #f2f2f2;
-    font-family: sans-serif;
+    left: 58px;
+    top: 74px;
+    width: 266px;
+    height: 266px;
+    border-radius: 137px;
+    border: 4px solid #3a3444;
+}
+
+[app="app.gtdash"] .cold .ring { border-color: #5b8def; }
+[app="app.gtdash"] .mid .ring { border-color: #d4a857; }
+[app="app.gtdash"] .warm .ring { border-color: #79c267; }
+
+[app="app.gtdash"] .sun-text {
+    position: absolute;
+    left: 70px;
+    top: 128px;
+    width: 250px;
     text-align: center;
 }
 
-[app="app.gtdash"] .page {
-    position: absolute;
-    top: 10px;
-    left: 40px;
-    right: 40px;
-    bottom: 40px;
-}
-
-[app="app.gtdash"] .caption,
-[app="app.gtdash"] span {
+[app="app.gtdash"] .sun-text span {
     display: block;
     font-size: 22px;
-    letter-spacing: 3px;
-    color: #8a8a8a;
+    color: #ffe2c2;
+    letter-spacing: 4px;
 }
 
-[app="app.gtdash"] .big {
-    font-size: 140px;
-    line-height: 150px;
-    font-weight: bold;
+[app="app.gtdash"] .sun-text b {
+    font-weight: normal;
+    font-size: 84px;
+    line-height: 100px;
+    color: #fff;
+}
+
+[app="app.gtdash"] .sun-text em {
+    font-style: normal;
+    font-family: 'KodoDisplay', sans-serif;
+    font-size: 26px;
+    color: #ffe2c2;
+}
+
+[app="app.gtdash"] .sun-text i {
+    display: block;
+    font-style: normal;
+    font-family: 'KodoDisplay', sans-serif;
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: #ffc2c2;
 }
 
 [app="app.gtdash"] .status {
-    font-size: 26px;
-    letter-spacing: 2px;
-    margin-top: 6px;
+    position: absolute;
+    left: 370px;
+    top: 94px;
+    width: 380px;
 }
 
-[app="app.gtdash"] .bar {
-    height: 14px;
-    margin: 6px 60px 0;
-    background: #222;
-    border-radius: 7px;
-    overflow: hidden;
-}
-
-[app="app.gtdash"] .bar div {
-    height: 100%;
-    background: #c8102e;
-}
-
-[app="app.gtdash"] .bar.small {
-    margin: 10px 30px 0;
-    height: 10px;
-}
-
-[app="app.gtdash"] .row {
-    margin-top: 22px;
-}
-
-[app="app.gtdash"] .row div {
-    display: inline-block;
-    width: 45%;
-    font-size: 40px;
-}
-
-/* warm-up states */
-[app="app.gtdash"] .engine.cold .big,
-[app="app.gtdash"] .engine.cold .status { color: #3d9bff; }
-[app="app.gtdash"] .engine.cold .bar div { background: #3d9bff; }
-[app="app.gtdash"] .engine.mid .big,
-[app="app.gtdash"] .engine.mid .status { color: #ffb020; }
-[app="app.gtdash"] .engine.mid .bar div { background: #ffb020; }
-[app="app.gtdash"] .engine.warm .status { color: #3ddc84; }
-[app="app.gtdash"] .engine.warm .bar div { background: #3ddc84; }
-
-/* trip grid */
-[app="app.gtdash"] .grid .cell {
-    display: inline-block;
-    vertical-align: top;
-    width: 48%;
-    height: 170px;
-    padding-top: 20px;
-    box-sizing: border-box;
-}
-
-[app="app.gtdash"] .grid b {
+[app="app.gtdash"] .status b {
     display: block;
-    font-size: 72px;
-    line-height: 90px;
+    font-weight: normal;
+    font-size: 40px;
+    line-height: 50px;
 }
 
-[app="app.gtdash"] .grid em {
+[app="app.gtdash"] .status i {
+    display: block;
     font-style: normal;
-    font-size: 20px;
-    color: #8a8a8a;
+    font-family: 'KodoDisplay', sans-serif;
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: #8c8696;
 }
 
-/* service states */
-[app="app.gtdash"] .service .big { font-size: 96px; line-height: 130px; }
-[app="app.gtdash"] .service .row div { width: 90%; }
-[app="app.gtdash"] .service.soon .big { color: #ffb020; }
-[app="app.gtdash"] .service.due .big,
-[app="app.gtdash"] .service.due .status { color: #ff4040; }
+[app="app.gtdash"] .cold .status b { color: #5b8def; }
+[app="app.gtdash"] .mid .status b { color: #d4a857; }
+[app="app.gtdash"] .warm .status b { color: #79c267; }
 
-/* raw calibration table */
-[app="app.gtdash"] table {
-    margin: 16px auto 0;
-    font-size: 26px;
+[app="app.gtdash"] .warm-bar {
+    position: absolute;
+    left: 370px;
+    top: 184px;
+    width: 360px;
+}
+
+[app="app.gtdash"] .cold .warm-bar div { background: #5b8def; }
+[app="app.gtdash"] .mid .warm-bar div { background: #d4a857; }
+[app="app.gtdash"] .warm .warm-bar div { background: #79c267; }
+
+[app="app.gtdash"] .mini {
+    top: 230px;
+    width: 164px;
+    height: 96px;
+    padding: 12px 0 0 16px;
+}
+
+[app="app.gtdash"] .m1 { left: 370px; }
+[app="app.gtdash"] .m2 { left: 550px; }
+
+[app="app.gtdash"] .mini b,
+[app="app.gtdash"] .cell b,
+[app="app.gtdash"] .big-card b {
+    display: block;
+    font-weight: normal;
+}
+
+[app="app.gtdash"] .mini b {
+    font-size: 40px;
+    line-height: 56px;
+}
+
+[app="app.gtdash"] .k-num em {
+    font-style: normal;
+    font-size: 18px;
+    color: #8c8696;
+    margin-left: 6px;
+}
+
+/* ---------- TRIP 旅 ---------- */
+
+[app="app.gtdash"] .cell {
+    width: 300px;
+    height: 118px;
+    padding: 14px 0 0 20px;
+}
+
+[app="app.gtdash"] .c1 { left: 80px; top: 82px; }
+[app="app.gtdash"] .c2 { left: 410px; top: 82px; }
+[app="app.gtdash"] .c3 { left: 80px; top: 228px; }
+[app="app.gtdash"] .c4 { left: 410px; top: 228px; }
+
+[app="app.gtdash"] .cell b {
+    font-size: 52px;
+    line-height: 70px;
+}
+
+[app="app.gtdash"] .cell .k-bar {
+    position: absolute;
+    left: 160px;
+    top: 72px;
+    width: 120px;
+}
+
+/* ---------- SERVICE 整備 ---------- */
+
+[app="app.gtdash"] .big-card {
+    left: 90px;
+    top: 84px;
+    width: 590px;
+    height: 244px;
+    padding: 22px 0 0 30px;
+}
+
+[app="app.gtdash"] .big-card b {
+    font-size: 88px;
+    line-height: 110px;
+}
+
+[app="app.gtdash"] .big-card b em {
+    font-size: 28px;
+}
+
+[app="app.gtdash"] .soon .big-card b { color: #d4a857; }
+[app="app.gtdash"] .due .big-card b { color: #ff4d5e; }
+
+[app="app.gtdash"] .sub {
+    font-size: 20px;
+    color: #c9c2d2;
+}
+
+[app="app.gtdash"] .due .sub { color: #ff4d5e; }
+
+[app="app.gtdash"] .interval {
+    margin-top: 18px;
+    font-family: 'KodoDisplay', sans-serif;
+    font-size: 20px;
+}
+
+[app="app.gtdash"] .interval span {
+    color: #d4a857;
+}
+
+[app="app.gtdash"] .interval i {
+    font-style: normal;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: #8c8696;
+    margin-left: 12px;
+}
+
+[app="app.gtdash"] .service .k-stamp {
+    left: 560px;
+    top: 104px;
+    width: 120px;
+    height: 120px;
+    font-size: 36px;
+    line-height: 112px;
+}
+
+[app="app.gtdash"] .ok .k-stamp {
+    border-color: #79c267;
+    color: #79c267;
+}
+
+[app="app.gtdash"] .soon .k-stamp {
+    border-color: #d4a857;
+    color: #d4a857;
+}
+
+/* ---------- RAW ---------- */
+
+[app="app.gtdash"] .raw {
+    left: 170px;
+    top: 80px;
+    width: 460px;
+    height: 280px;
+    padding: 12px 0;
+    text-align: center;
+}
+
+[app="app.gtdash"] .raw table {
+    margin: 0 auto;
+    font-size: 22px;
     border-collapse: collapse;
 }
 
-[app="app.gtdash"] td {
-    padding: 4px 24px;
-    border-bottom: 1px solid #222;
+[app="app.gtdash"] .raw td {
+    padding: 3px 24px;
+    border-bottom: 1px solid #26222e;
     text-align: left;
 }
 
-/* page dots */
-[app="app.gtdash"] .dots {
-    position: absolute;
-    bottom: 14px;
-    left: 0;
-    right: 0;
-}
-
-[app="app.gtdash"] .dots i {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    margin: 0 6px;
-    border-radius: 5px;
-    background: #444;
-}
-
-[app="app.gtdash"] .dots i.on {
-    background: #c8102e;
+[app="app.gtdash"] .raw i {
+    display: block;
+    margin-top: 10px;
+    font-style: normal;
+    font-size: 14px;
+    color: #8c8696;
 }
