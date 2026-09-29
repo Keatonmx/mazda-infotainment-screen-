@@ -10,7 +10,7 @@ The included `apps/app.companion/sprites.png` is placeholder pixel art drawn by
 - **Each cell 240×240 px** (a 48×48 sprite scaled 5× with nearest-neighbor, so pixels stay sharp).
   The full sheet is 720×1440 px, PNG with a transparent background.
 
-If you generate at 64×64, scale by 3.75 isn't clean, so either generate at 48×48 (×5) or change `CELL` in
+If you generate at 64×64, 240 isn't a whole multiple of 64, so either generate at 48×48 (×5) or change `CELL` in
 `app.js` and the `.sprite` size in `app.css` to match (for example 64×64 ×4 = 256).
 
 ## PixelLab prompts
