@@ -1,0 +1,145 @@
+/* GT Dash: 800x480 screen, statusbar on top. Keep effects cheap: no shadows, blur or animations. */
+
+[app="app.gtdash"] {
+    background: #000;
+}
+
+[app="app.gtdash"] .gt {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: #f2f2f2;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+[app="app.gtdash"] .page {
+    position: absolute;
+    top: 10px;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+}
+
+[app="app.gtdash"] .caption,
+[app="app.gtdash"] span {
+    display: block;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: #8a8a8a;
+}
+
+[app="app.gtdash"] .big {
+    font-size: 140px;
+    line-height: 150px;
+    font-weight: bold;
+}
+
+[app="app.gtdash"] .status {
+    font-size: 26px;
+    letter-spacing: 2px;
+    margin-top: 6px;
+}
+
+[app="app.gtdash"] .bar {
+    height: 14px;
+    margin: 6px 60px 0;
+    background: #222;
+    border-radius: 7px;
+    overflow: hidden;
+}
+
+[app="app.gtdash"] .bar div {
+    height: 100%;
+    background: #c8102e;
+}
+
+[app="app.gtdash"] .bar.small {
+    margin: 10px 30px 0;
+    height: 10px;
+}
+
+[app="app.gtdash"] .row {
+    margin-top: 22px;
+}
+
+[app="app.gtdash"] .row div {
+    display: inline-block;
+    width: 45%;
+    font-size: 40px;
+}
+
+/* warm-up states */
+[app="app.gtdash"] .engine.cold .big,
+[app="app.gtdash"] .engine.cold .status { color: #3d9bff; }
+[app="app.gtdash"] .engine.cold .bar div { background: #3d9bff; }
+[app="app.gtdash"] .engine.mid .big,
+[app="app.gtdash"] .engine.mid .status { color: #ffb020; }
+[app="app.gtdash"] .engine.mid .bar div { background: #ffb020; }
+[app="app.gtdash"] .engine.warm .status { color: #3ddc84; }
+[app="app.gtdash"] .engine.warm .bar div { background: #3ddc84; }
+
+/* trip grid */
+[app="app.gtdash"] .grid .cell {
+    display: inline-block;
+    vertical-align: top;
+    width: 48%;
+    height: 170px;
+    padding-top: 20px;
+    box-sizing: border-box;
+}
+
+[app="app.gtdash"] .grid b {
+    display: block;
+    font-size: 72px;
+    line-height: 90px;
+}
+
+[app="app.gtdash"] .grid em {
+    font-style: normal;
+    font-size: 20px;
+    color: #8a8a8a;
+}
+
+/* service states */
+[app="app.gtdash"] .service .big { font-size: 96px; line-height: 130px; }
+[app="app.gtdash"] .service .row div { width: 90%; }
+[app="app.gtdash"] .service.soon .big { color: #ffb020; }
+[app="app.gtdash"] .service.due .big,
+[app="app.gtdash"] .service.due .status { color: #ff4040; }
+
+/* raw calibration table */
+[app="app.gtdash"] table {
+    margin: 16px auto 0;
+    font-size: 26px;
+    border-collapse: collapse;
+}
+
+[app="app.gtdash"] td {
+    padding: 4px 24px;
+    border-bottom: 1px solid #222;
+    text-align: left;
+}
+
+/* page dots */
+[app="app.gtdash"] .dots {
+    position: absolute;
+    bottom: 14px;
+    left: 0;
+    right: 0;
+}
+
+[app="app.gtdash"] .dots i {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 6px;
+    border-radius: 5px;
+    background: #444;
+}
+
+[app="app.gtdash"] .dots i.on {
+    background: #c8102e;
+}
