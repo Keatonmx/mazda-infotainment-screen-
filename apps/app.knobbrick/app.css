@@ -1,10 +1,10 @@
 /* Knob Breakout: plain boxes, no shadows or animations, to stay fast on the CMU. */
 
-[app="app.breakout"] {
+[app="app.knobbrick"] {
     background: #000;
 }
 
-[app="app.breakout"] .bo {
+[app="app.knobbrick"] .bo {
     position: absolute;
     top: 64px;
     left: 0;
@@ -15,11 +15,11 @@
     color: #f2f2f2;
 }
 
-[app="app.breakout"] .bo > div {
+[app="app.knobbrick"] .bo > div {
     position: absolute;
 }
 
-[app="app.breakout"] .hud {
+[app="app.knobbrick"] .hud {
     top: 0;
     left: 0;
     right: 0;
@@ -32,42 +32,42 @@
     text-align: center;
 }
 
-[app="app.breakout"] .hud span {
+[app="app.knobbrick"] .hud span {
     display: inline-block;
     width: 24%;
 }
 
-[app="app.breakout"] .hud .lives {
+[app="app.knobbrick"] .hud .lives {
     color: #c8102e;
 }
 
-[app="app.breakout"] .brick {
+[app="app.knobbrick"] .brick {
     width: 90px;
     height: 22px;
     border-radius: 3px;
 }
 
-[app="app.breakout"] .row0 { background: #c8102e; }
-[app="app.breakout"] .row1 { background: #ff6a13; }
-[app="app.breakout"] .row2 { background: #ffb020; }
-[app="app.breakout"] .row3 { background: #3ddc84; }
-[app="app.breakout"] .row4 { background: #3d9bff; }
+[app="app.knobbrick"] .row0 { background: #c8102e; }
+[app="app.knobbrick"] .row1 { background: #ff6a13; }
+[app="app.knobbrick"] .row2 { background: #ffb020; }
+[app="app.knobbrick"] .row3 { background: #3ddc84; }
+[app="app.knobbrick"] .row4 { background: #3d9bff; }
 
-[app="app.breakout"] .paddle {
+[app="app.knobbrick"] .paddle {
     width: 120px;
     height: 14px;
     border-radius: 7px;
     background: #f2f2f2;
 }
 
-[app="app.breakout"] .ball {
+[app="app.knobbrick"] .ball {
     width: 14px;
     height: 14px;
     border-radius: 7px;
     background: #fff;
 }
 
-[app="app.breakout"] .msg {
+[app="app.knobbrick"] .msg {
     left: 0;
     right: 0;
     top: 230px;
@@ -77,7 +77,7 @@
     letter-spacing: 4px;
 }
 
-[app="app.breakout"] .msg small {
+[app="app.knobbrick"] .msg small {
     display: block;
     font-size: 22px;
     font-weight: normal;
@@ -86,8 +86,8 @@
     margin-top: 8px;
 }
 
-[app="app.breakout"] .locked .brick,
-[app="app.breakout"] .locked .paddle,
-[app="app.breakout"] .locked .ball {
+[app="app.knobbrick"] .locked .brick,
+[app="app.knobbrick"] .locked .paddle,
+[app="app.knobbrick"] .locked .ball {
     opacity: 0.25;
 }

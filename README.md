@@ -2,38 +2,51 @@
 
 Custom apps and guides for a 2016 Mazda 3 Grand Touring (Mazda Connect, 7" screen, commander knob, Bose).
 
-| Path | What it is |
+## What's here
+
+| | What it does |
 |---|---|
-| [`docs/CLEAN_INSTALL_CHECKLIST.md`](docs/CLEAN_INSTALL_CHECKLIST.md) | Step-by-step checklist to clean up and reinstall MZD-AIO tweaks |
-| [`docs/APP_IDEAS.md`](docs/APP_IDEAS.md) | What custom apps can and can't do on this hardware, and the idea list |
-| [`apps/app.gtdash/`](apps/app.gtdash) | **GT Dash**: coolant temp and warm-up, trip info, oil-change countdown |
-| [`simulator/`](simulator) | Run apps in a desktop browser at 800×480 with a virtual knob |
+| **[GT Dash](apps/app.gtdash)** | Real coolant temperature and warm-up status (the car has no gauge), trip info, oil-change countdown |
+| **[Knob Breakout](apps/app.knobbrick)** | Brick breaker played by spinning the commander knob. Parked only. |
+| **[Road Trip](apps/app.roadtrip)** | Colors in each US state you drive in, with a "NEW STATE!" banner, farthest-from-home and highest-point records |
+| **[Kodo](apps/app.carpet)** | A car pet whose mood follows how the car is treated: smooth driving, warm-ups, fuel, oil changes, weather. Levels up with miles. |
+| **[Startup greeting](greeting)** | A card at startup: good morning, holidays, your birthday, odometer milestones, cold-engine and oil reminders |
+| **[Startup sound](docs/STARTUP_SOUND.md)** | A short chime (or your own MP3) with the greeting |
 
-## GT Dash
+Guides:
 
-The Mazda 3 has no coolant temperature gauge, only a blue "cold" light. GT Dash shows the real temperature and tells you when the engine is warm enough to rev, which is handy with a manual.
+- [Clean install checklist](docs/CLEAN_INSTALL_CHECKLIST.md): clean up and reinstall MZD-AIO tweaks (do this first)
+- [Installing on the car](installer/README.md): one USB installs everything
+- [Startup sound findings](docs/STARTUP_SOUND.md)
+- [App ideas](docs/APP_IDEAS.md): what's possible on this hardware
 
-- **ENGINE:** big coolant temperature, warm-up bar (blue → amber → green), intake and outside temperatures
-- **TRIP:** fuel level, average economy, battery, outside temperature
-- **SERVICE:** miles until the next oil change, based on the odometer. Press the knob twice to log a change. Knob up/down sets the interval.
+## Try everything on a computer
 
-Knob: **rotate** to switch pages, **left** to show raw values (for calibration).
+Open `simulator/index.html` in a browser. Tabs at the top switch between apps and the startup greeting.
 
-### Try it on a computer
+- Knob: `[` `]` or the mouse wheel to rotate, arrow keys to tilt, Enter to press (or the on-screen buttons)
+- Sliders fake sensor values (speed, RPM, temperatures, fuel, odometer)
+- 📍 buttons teleport the GPS for Road Trip
+- Apps share saved data like on the car, so logging an oil change in GT Dash makes Kodo happy
 
-Open `simulator/index.html` in a browser. Use the sliders to change fake sensor values, and `[` `]`, arrow keys and Enter (or the on-screen buttons) to act as the knob.
+## Status
 
-### Install on the car (not yet tested on a real car)
+Everything runs in the simulator and has automated checks: Road Trip state lookup passes 35 border-city tests
+(`node tools/test-roadtrip-lookup.js`), and the installer was dry-run against a fake copy of the car's folders.
+**None of it has run on the car yet.** Expect to calibrate a few sensor values (GT Dash's RAW mode, knob-left, shows them).
 
-GT Dash is a [CASDK](https://github.com/flyandi/mazda-custom-application-sdk) app. CASDK is the custom-app framework that MZD-AIO-TI can install.
+## Limits of the hardware
 
-1. Finish the clean install checklist first, and make sure the system is stable.
-2. In MZD-AIO-TI, enable **CASDK**. Then add the `app.gtdash` folder to the CASDK apps folder, and add `"app.gtdash"` to the app list (`apps.js`). The exact folder depends on your AIO version: check AIO's CASDK tab.
-3. Open **GT Dash** from the Applications menu.
-4. **Calibrate:** press knob-left for RAW mode and compare the numbers with reality. For example, a warm engine should read about 90 (°C). If a value is off, adjust `calibration` at the top of `app.js`. The raw scaling of coolant temperature, fuel level, economy and odometer isn't documented, so this step matters.
+- Vehicle data updates about **once per second**: fine for temperatures, levels and GPS, too slow for shift lights.
+- CASDK only sends data to the app on screen, so Kodo and Road Trip only track while they're open.
+- The CMU's browser is Opera Presto (about 2012), so everything is plain ES5 JavaScript with simple CSS.
+- Games and petting lock while the car is moving.
 
-### Limits
+## Rebuilding generated files
 
-- Vehicle data updates about **once per second**, so the dashboard is good for temperatures and levels, and too slow for things like shift lights or 0–60 timing.
-- The CMU's browser is old, so apps must be **plain ES5 JavaScript** with simple CSS, and no frameworks.
-- Keep apps light. Every app that stays open uses the same limited memory that made the system slow.
+```
+npm i us-atlas@3 topojson-client@3 topojson-simplify@3 d3-geo@3 lamejs@1.2.1
+node tools/build-states.js    # Road Trip state map data
+node tools/make-chime.js      # default startup chime
+sh tools/build-usb.sh         # assemble the USB installer in dist/usb
+```

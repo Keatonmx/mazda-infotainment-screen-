@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mazda Connect Simulator</title>
 <script>
-    var APPS = {'app.gtdash': 'GT Dash', 'app.breakout': 'Knob Breakout', 'app.roadtrip': 'Road Trip', 'app.carpet': 'Kodo (car pet)'};
+    var APPS = {'app.gtdash': 'GT Dash', 'app.knobbrick': 'Knob Breakout', 'app.roadtrip': 'Road Trip', 'app.carpet': 'Kodo (car pet)'};
     var APP = (location.search.match(/app=([\w.]+)/) || [])[1];
     if (!APPS[APP]) APP = 'app.gtdash';
     document.write('<link rel="stylesheet" href="../apps/' + APP + '/app.css">');
@@ -79,6 +79,9 @@ Sliders send values in the units the CASDK reports (°C, km, %).</p>
         if (id === APP) a.className = 'on';
         nav.appendChild(a);
     }
+    var g = document.createElement('a');
+    g.href = 'greeting.html'; g.textContent = 'Startup greeting';
+    nav.appendChild(g);
 
     // GPS teleport buttons: [name, lat, lon, altitude m]
     var PLACES = [['Kent, WA', 47.38, -122.23, 60], ['Portland, OR', 45.52, -122.68, 15],

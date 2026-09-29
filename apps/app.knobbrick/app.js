@@ -11,7 +11,7 @@
  * The frame loop only runs while the app is on screen.
  */
 
-CustomApplicationsHandler.register("app.breakout", new CustomApplication({
+CustomApplicationsHandler.register("app.knobbrick", new CustomApplication({
 
     require: {
         js: [],
