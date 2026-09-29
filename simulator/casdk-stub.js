@@ -56,14 +56,14 @@ CustomApplication.prototype.get = function(name, fallback) {
 
 CustomApplication.prototype.set = function(name, value) {
     this.__storage[name] = value;  // throws on null storage, like the real CASDK
-    try { localStorage.setItem('sim.' + this.id, JSON.stringify(this.__storage)); } catch (e) {}
+    try { localStorage.setItem(this.id, JSON.stringify(this.__storage)); } catch (e) {}
 };
 
 var CustomApplicationsHandler = {
     register: function(id, app) {
         app.id = id;
         Sim.app = app;
-        try { app.__storage = JSON.parse(localStorage.getItem('sim.' + id)); } catch (e) {}
+        try { app.__storage = JSON.parse(localStorage.getItem(id)); } catch (e) {}
 
         var canvas = document.getElementById('canvas');
         canvas.setAttribute('app', id);
@@ -112,7 +112,7 @@ Sim.setRegion = function(region) {
 };
 
 Sim.resetStorage = function() {
-    try { localStorage.removeItem('sim.' + Sim.app.id); } catch (e) {}
+    try { localStorage.removeItem(Sim.app.id); } catch (e) {}
     Sim.app.__storage = null;
     location.reload();
 };

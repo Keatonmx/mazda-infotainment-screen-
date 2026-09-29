@@ -1,0 +1,318 @@
+/* Kodo: built from plain boxes and rounded corners. No images, shadows or CSS animations. */
+
+[app="app.carpet"] {
+    background: #000;
+}
+
+[app="app.carpet"] .kodo {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    width: 800px;
+    height: 416px;
+    font-family: sans-serif;
+    color: #f2f2f2;
+    overflow: hidden;
+}
+
+[app="app.carpet"] .stage {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 350px;
+}
+
+/* speech bubble */
+[app="app.carpet"] .bubble {
+    position: absolute;
+    left: 480px;
+    top: 50px;
+    width: 250px;
+    padding: 16px 18px;
+    background: #f2f2f2;
+    color: #111;
+    border-radius: 18px;
+    font-size: 24px;
+    line-height: 30px;
+    text-align: center;
+}
+
+/* the pet */
+[app="app.carpet"] .pet {
+    position: absolute;
+    left: 290px;
+    width: 220px;
+    height: 330px;
+}
+
+[app="app.carpet"] .body {
+    position: absolute;
+    left: 10px;
+    top: 90px;
+    width: 200px;
+    height: 180px;
+    background: #c8102e;
+    border-radius: 100px 100px 80px 80px;
+}
+
+[app="app.carpet"] .belly {
+    position: absolute;
+    left: 50px;
+    top: 95px;
+    width: 100px;
+    height: 70px;
+    background: #e0485f;
+    border-radius: 50px;
+}
+
+[app="app.carpet"] .eye {
+    position: absolute;
+    top: 45px;
+    width: 40px;
+    height: 44px;
+    background: #fff;
+    border-radius: 22px;
+}
+
+[app="app.carpet"] .eye.l { left: 45px; }
+[app="app.carpet"] .eye.r { left: 115px; }
+
+[app="app.carpet"] .eye i {
+    position: absolute;
+    left: 12px;
+    top: 14px;
+    width: 18px;
+    height: 20px;
+    background: #111;
+    border-radius: 10px;
+}
+
+[app="app.carpet"] .cheek {
+    position: absolute;
+    top: 92px;
+    width: 24px;
+    height: 12px;
+    background: #ff8fa0;
+    border-radius: 6px;
+    opacity: 0.8;
+}
+
+[app="app.carpet"] .cheek.l { left: 28px; }
+[app="app.carpet"] .cheek.r { left: 148px; }
+
+[app="app.carpet"] .mouth {
+    position: absolute;
+    left: 75px;
+    top: 98px;
+    width: 50px;
+    height: 22px;
+    border: 5px solid #3a0010;
+    border-top: none;
+    border-radius: 0 0 50px 50px;
+    z-index: 2;
+}
+
+[app="app.carpet"] .foot {
+    position: absolute;
+    top: 258px;
+    width: 56px;
+    height: 24px;
+    background: #9a0c23;
+    border-radius: 28px 28px 12px 12px;
+}
+
+[app="app.carpet"] .foot.l { left: 40px; }
+[app="app.carpet"] .foot.r { left: 124px; }
+
+[app="app.carpet"] .shadow {
+    position: absolute;
+    left: 320px;
+    top: 290px;
+    width: 160px;
+    height: 16px;
+    background: #1a1a1a;
+    border-radius: 80px;
+}
+
+/* faces */
+[app="app.carpet"] .face-grin .mouth {
+    height: 26px;
+    border: none;
+    background: #3a0010;
+    border-radius: 0 0 50px 50px;
+}
+
+[app="app.carpet"] .face-sad .mouth {
+    top: 108px;
+    border: 5px solid #3a0010;
+    border-bottom: none;
+    border-radius: 50px 50px 0 0;
+}
+
+[app="app.carpet"] .face-meh .mouth {
+    top: 108px;
+    left: 80px;
+    width: 40px;
+    height: 0;
+    border: none;
+    border-top: 5px solid #3a0010;
+    border-radius: 0;
+}
+
+[app="app.carpet"] .face-shock .mouth {
+    left: 86px;
+    width: 28px;
+    height: 30px;
+    border: none;
+    background: #3a0010;
+    border-radius: 15px;
+}
+
+[app="app.carpet"] .face-shock .eye i {
+    left: 14px;
+    top: 13px;
+    width: 12px;
+    height: 12px;
+}
+
+[app="app.carpet"] .face-sleep .eye,
+[app="app.carpet"] .blink .eye {
+    top: 66px;
+    height: 5px;
+    background: #3a0010;
+}
+
+[app="app.carpet"] .face-sleep .eye i,
+[app="app.carpet"] .blink .eye i {
+    display: none;
+}
+
+[app="app.carpet"] .face-sleep .mouth {
+    left: 88px;
+    width: 24px;
+    height: 0;
+    border: none;
+    border-top: 5px solid #3a0010;
+    border-radius: 0;
+    top: 110px;
+}
+
+/* extras */
+[app="app.carpet"] .scarf,
+[app="app.carpet"] .drop,
+[app="app.carpet"] .zzz,
+[app="app.carpet"] .heart {
+    display: none;
+    position: absolute;
+}
+
+[app="app.carpet"] .mood-cold .scarf {
+    display: block;
+    left: -6px;
+    top: 132px;
+    width: 212px;
+    height: 26px;
+    background: #3d9bff;
+    border-radius: 13px;
+}
+
+[app="app.carpet"] .mood-hot .drop,
+[app="app.carpet"] .mood-sick .drop {
+    display: block;
+    left: 172px;
+    top: 30px;
+    width: 18px;
+    height: 26px;
+    background: #7fd3ff;
+    border-radius: 9px 9px 12px 12px;
+}
+
+[app="app.carpet"] .mood-sick .body { background: #8e5a66; }
+[app="app.carpet"] .mood-sick .belly { background: #a7757f; }
+[app="app.carpet"] .mood-sick .drop { background: #9be08a; }
+
+[app="app.carpet"] .mood-sleepy .zzz {
+    display: block;
+    left: 175px;
+    top: -40px;
+    font-size: 36px;
+    font-weight: bold;
+    color: #8ab4ff;
+}
+
+[app="app.carpet"] .loved .heart {
+    display: block;
+    left: 90px;
+    top: 30px;
+    font-size: 48px;
+    color: #ff4d6d;
+}
+
+/* mood meter */
+[app="app.carpet"] .meter {
+    position: absolute;
+    left: 60px;
+    right: 60px;
+    bottom: 22px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 18px;
+    letter-spacing: 3px;
+    color: #8a8a8a;
+}
+
+[app="app.carpet"] .meter .bar {
+    position: absolute;
+    left: 90px;
+    right: 110px;
+    top: 10px;
+    height: 12px;
+    background: #222;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+[app="app.carpet"] .meter .bar div {
+    height: 100%;
+    background: #3ddc84;
+}
+
+[app="app.carpet"] .meter .lvl {
+    position: absolute;
+    right: 0;
+    color: #f2f2f2;
+}
+
+/* stats page */
+[app="app.carpet"] .stats {
+    padding-top: 26px;
+    text-align: center;
+}
+
+[app="app.carpet"] .cell {
+    display: inline-block;
+    vertical-align: top;
+    width: 48%;
+    height: 150px;
+}
+
+[app="app.carpet"] .cell span {
+    display: block;
+    font-size: 18px;
+    letter-spacing: 3px;
+    color: #8a8a8a;
+}
+
+[app="app.carpet"] .cell b {
+    display: block;
+    font-size: 64px;
+    line-height: 80px;
+}
+
+[app="app.carpet"] .cell i {
+    display: block;
+    font-style: normal;
+    font-size: 20px;
+    color: #c8102e;
+}

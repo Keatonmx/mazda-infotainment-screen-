@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mazda Connect Simulator</title>
 <script>
-    var APPS = {'app.gtdash': 'GT Dash', 'app.breakout': 'Knob Breakout', 'app.roadtrip': 'Road Trip'};
+    var APPS = {'app.gtdash': 'GT Dash', 'app.breakout': 'Knob Breakout', 'app.roadtrip': 'Road Trip', 'app.carpet': 'Kodo (car pet)'};
     var APP = (location.search.match(/app=([\w.]+)/) || [])[1];
     if (!APPS[APP]) APP = 'app.gtdash';
     document.write('<link rel="stylesheet" href="../apps/' + APP + '/app.css">');
@@ -60,6 +60,7 @@ Sliders send values in the units the CASDK reports (°C, km, %).</p>
 <script>
     var sliders = [
         {label: 'Vehicle speed (km/h)', field: VehicleData.vehicle.speed, min: 0, max: 120, value: 0},
+        {label: 'Engine RPM', field: VehicleData.vehicle.rpm, min: 0, max: 6800, step: 100, value: 800},
         {label: 'Coolant (°C)', field: VehicleData.temperature.coolant, min: -10, max: 115, value: 35},
         {label: 'Intake air (°C)', field: VehicleData.temperature.intake, min: -10, max: 70, value: 22},
         {label: 'Outside (°C)', field: VehicleData.temperature.outside, min: -30, max: 45, value: 18},
