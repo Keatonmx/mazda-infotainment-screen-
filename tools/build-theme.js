@@ -107,7 +107,7 @@ function drawPatterns() {
                     lines.width = 800; lines.height = 416;
                     var s = lines.getContext('2d'), seed = 7;
                     function rand() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
-                    var ox = 230, oy = 210;
+                    var ox = 232, oy = 224;   // Akari's sun center (apps/app.companion/app.css)
                     for (var i = 0; i < 90; i++) {
                         var a = rand() * Math.PI * 2, width = 0.004 + rand() * 0.012;
                         var start = 170 + rand() * 90, end = 700;

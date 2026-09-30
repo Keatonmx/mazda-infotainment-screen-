@@ -47,9 +47,10 @@ CustomApplicationsHandler.register("app.gtdash", new CustomApplication({
         battery:     {scale: 1, offset: 0}
     },
 
-    // Warm-up thresholds in °C
+    // Coolant thresholds in °C: blue below COLD_BELOW, amber until WARM_AT, green (normal) until HOT_AT, red above
     COLD_BELOW: 60,
     WARM_AT: 80,
+    HOT_AT: 105,
 
     DEFAULT_OIL_INTERVAL_MI: 5000,
 
@@ -191,7 +192,8 @@ CustomApplicationsHandler.register("app.gtdash", new CustomApplication({
             state = 'none'; jp = '待機中'; en = 'WAITING FOR DATA';
         } else {
             pct = Math.max(0, Math.min(100, (c - 20) / (this.WARM_AT - 20) * 100));
-            if (c >= this.WARM_AT) { state = 'warm'; jp = '準備完了'; en = 'ENGINE WARM · READY'; }
+            if (c >= this.HOT_AT) { state = 'hot'; jp = 'オーバーヒート'; en = 'OVERHEATING · PULL OVER'; }
+            else if (c >= this.WARM_AT) { state = 'warm'; jp = '準備完了'; en = 'ENGINE WARM · READY'; }
             else if (c >= this.COLD_BELOW) { state = 'mid'; jp = 'もう少し'; en = 'ALMOST WARM'; }
         }
         var t = this.tempParts(c), intake = this.tempParts(this.values.intake), outside = this.tempParts(this.values.outside);
