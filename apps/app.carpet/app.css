@@ -23,11 +23,12 @@
     background-repeat: no-repeat;
 }
 
-/* zabuton floor cushion, under the tires (tire bottoms are at y 225 in the frame) */
+/* zabuton floor cushion, under the tires (tire bottoms are at y 235 in the frame, body centered at x 125),
+   tires sink 12px into it */
 [app="app.carpet"] .zabuton {
     position: absolute;
-    left: 160px;
-    top: 286px;
+    left: 168px;
+    top: 295px;
     width: 214px;
     height: 26px;
     background: #7d0a1c;

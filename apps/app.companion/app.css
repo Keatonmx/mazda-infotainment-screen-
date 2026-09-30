@@ -6,8 +6,8 @@
 
 /*
  * Deep crimson sun with a gold ring, dark enough that her red jacket stands out.
- * Centered on her body, not the sprite frame: the art's visual center is (122.5, 127.5) inside
- * the 240x240 frame (measured from sprites.png), so sun center (232, 224) = sprite (110, 97) + that.
+ * Centered on her body, not the sprite frame: the PixelLab art's visual center is (120, 130) inside
+ * the 240x240 frame (measured from sprites.png), so sun center (232, 224) = sprite (112, 94) + that.
  * 290px across (282 + 4px border each side) leaves ~30px of sun around her head and feet.
  */
 [app="app.companion"] .k-sun {
@@ -42,8 +42,8 @@
 
 [app="app.companion"] .sprite {
     position: absolute;
-    left: 110px;
-    top: 97px;
+    left: 112px;
+    top: 94px;
     width: 240px;
     height: 240px;
     background-image: url(sprites.png);
