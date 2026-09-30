@@ -1,0 +1,2 @@
+# Scripts that run on the car (BusyBox sh) must keep Unix line endings, even on Windows checkouts.
+*.sh text eol=lf

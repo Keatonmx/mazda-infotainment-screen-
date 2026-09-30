@@ -6,7 +6,8 @@ ROOT=$(cd "$(dirname "$0")/.." && pwd)
 OUT="${ROOT}/dist/usb"
 rm -rf "${OUT}"
 mkdir -p "${OUT}/apps" "${OUT}/greeting/sounds"
-cp "${ROOT}/installer/tweaks.sh" "${OUT}/"
+# strip Windows line endings: the CMU's BusyBox sh can't run a CRLF script
+tr -d '\r' < "${ROOT}/installer/tweaks.sh" > "${OUT}/tweaks.sh"
 for APP in app.gtdash app.knobbrick app.roadtrip app.carpet app.companion; do
   cp -R "${ROOT}/apps/${APP}" "${OUT}/apps/"
   mkdir -p "${OUT}/apps/${APP}/theme"
