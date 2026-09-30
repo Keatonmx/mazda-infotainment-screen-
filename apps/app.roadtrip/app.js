@@ -208,8 +208,9 @@ CustomApplicationsHandler.register("app.roadtrip", new CustomApplication({
             html += '<canvas width="' + Math.round(ROADTRIP_MAP.w * this.MAP_SCALE) + '" height="' +
                 Math.round(ROADTRIP_MAP.h * this.MAP_SCALE) + '"></canvas>' +
                 '<div class="strip"><b class="k-num">' + count + '</b><span class="of">/ 50</span>' +
-                '<span class="k-label">州<i>STATES</i></span>' +
-                '<span class="k-label now">現在地<i>NOW</i></span><span class="where">' + where + '</span></div>';
+                '<span class="k-label">州<i>States</i></span>' +
+                '<span class="k-label now">現在地<i>Now</i></span><span class="where">' + where + '</span></div>' +
+                '<div class="k-hints"><span><i class="k-knob rot"></i><b>記録</b>Records</span></div>';
         } else {
             html += this.statsHtml(count);
         }
@@ -262,15 +263,16 @@ CustomApplicationsHandler.register("app.roadtrip", new CustomApplication({
         var metric = this.isMetric();
         var farText = far ? Math.round(metric ? far.km : far.km * 0.621371).toLocaleString() + '<em>' + (metric ? 'km' : 'mi') + '</em>' : '--';
         var highText = high ? Math.round(metric ? high.m : high.m * 3.28084).toLocaleString() + '<em>' + (metric ? 'm' : 'ft') + '</em>' : '--';
-        var home = new Date().getTime() < this.confirmUntil ? 'Press again to set home here' :
-            (this.moving ? 'Home: set from first GPS fix' : 'Press knob twice to set home here');
+        var confirming = new Date().getTime() < this.confirmUntil;
         var name = function(a) { return a && this.byAbbr[a] ? this.byAbbr[a].n : ''; }.bind(this);
 
-        return this.cell('c1', '州', 'STATES', count + '<em>/ 50</em>', newest ? 'newest: ' + name(newest) : '') +
-            this.cell('c2', '最遠', 'FARTHEST FROM HOME', farText, far && far.a ? 'in ' + name(far.a) : '') +
-            this.cell('c3', '最高地点', 'HIGHEST POINT', highText, high && high.a ? 'in ' + name(high.a) : '') +
-            this.cell('c4', '現在地', 'NOW IN', this.current ? this.current.a : '--', this.current ? this.current.n : '') +
-            '<div class="hint">' + home + '</div>';
+        return this.cell('c1', '州', 'States', count + '<em>/ 50</em>', newest ? 'newest: ' + name(newest) : '') +
+            this.cell('c2', '最遠', 'Farthest from home', farText, far && far.a ? 'in ' + name(far.a) : '') +
+            this.cell('c3', '最高地点', 'Highest point', highText, high && high.a ? 'in ' + name(high.a) : '') +
+            this.cell('c4', '現在地', 'Now in', this.current ? this.current.a : '--', this.current ? this.current.n : '') +
+            '<div class="k-hints"><span><i class="k-knob rot"></i><b>地図</b>Map</span>' +
+                (this.moving ? '' : '<span class="' + (confirming ? 'confirm' : '') + '"><i class="k-knob press"></i><b>自宅</b>' +
+                (confirming ? 'Press again to set home' : 'Set home here ×2') + '</span>') + '</div>';
     },
 
     cell: function(pos, jp, en, value, sub) {

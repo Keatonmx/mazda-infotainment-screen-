@@ -58,11 +58,11 @@
     width: 330px;
 }
 
-[app="app.companion"] .bubble.lv3 { background: #ffe8b8; }
-[app="app.companion"] .bubble.lv3:after { border-right-color: #ffe8b8; }
+[app="app.companion"] .bubble.lv3 { background: #f2dca8; }
+[app="app.companion"] .bubble.lv3:after { border-right-color: #f2dca8; }
 
-[app="app.companion"] .bubble.lv4 { background: #ffc2c2; }
-[app="app.companion"] .bubble.lv4:after { border-right-color: #ffc2c2; }
+[app="app.companion"] .bubble.lv4 { background: #f0b4b4; }
+[app="app.companion"] .bubble.lv4:after { border-right-color: #f0b4b4; }
 
 /* furious: red shout bubble, tilted */
 [app="app.companion"] .bubble.lv5 {
@@ -84,7 +84,7 @@
 }
 
 [app="app.companion"] .bubble.pat:after { border-right-color: #ffe3ec; }
-[app="app.companion"] .bubble.pat i { color: #555; }
+[app="app.companion"] .bubble.pat i { color: #5a5462; }
 
 /* ---------- speed + anger meter ---------- */
 
@@ -103,8 +103,8 @@
 [app="app.companion"] .speed {
     display: block;
     font-weight: normal;
-    font-size: 40px;
-    line-height: 50px;
+    font-size: 56px;
+    line-height: 66px;
 }
 
 [app="app.companion"] .speed em {
@@ -115,14 +115,14 @@
 
 [app="app.companion"] .anger {
     position: absolute;
-    left: 170px;
+    left: 180px;
     top: 0;
 }
 
 [app="app.companion"] .meter {
     position: absolute;
-    left: 170px;
-    top: 34px;
+    left: 180px;
+    top: 44px;
     white-space: nowrap;
 }
 

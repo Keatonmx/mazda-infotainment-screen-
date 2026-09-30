@@ -13,7 +13,7 @@ English subtitles, manga speech bubbles and hanko stamps. See [theme/kodo.css](t
 | **[GT Dash 計器盤](apps/app.gtdash)** | Real coolant temperature and warm-up status (the car has no gauge), trip info, oil-change countdown |
 | **[Knob Breakout ブロック崩し](apps/app.knobbrick)** | Brick breaker played by spinning the commander knob. Parked only. |
 | **[Road Trip 旅の記録](apps/app.roadtrip)** | Colors in each US state you drive in, with a "NEW STATE!" banner, farthest-from-home and highest-point records |
-| **[Kodo こどう](apps/app.carpet)** | A car pet whose mood follows how the car is treated: smooth driving, warm-ups, fuel, oil changes, weather. Levels up with miles. |
+| **[Kodo こどう](apps/app.carpet)** | Your car's soul (a tsukumogami): a pixel-art red spirit with a hitodama flame and tire feet. His mood follows how the car is treated: smooth driving, warm-ups, fuel, oil changes, weather. Levels up with miles. |
 | **[Akari あかり](apps/app.companion)** | An anime chibi companion who gets madder the faster you drive: happy, pouty, puffed cheeks, shouting, then full meltdown with steam at 85+ mph. Pat her head while parked. |
 | **[Startup greeting おはよう](greeting)** | A card at startup: good morning, holidays, your birthday, odometer milestones, cold-engine and oil reminders |
 | **[Startup sound](docs/STARTUP_SOUND.md)** | A short chime (or your own MP3) with the greeting |
@@ -24,7 +24,8 @@ Guides:
 - [Installing on the car](installer/README.md): one USB installs everything
 - [Startup sound findings](docs/STARTUP_SOUND.md)
 - [App ideas](docs/APP_IDEAS.md): what's possible on this hardware
-- [Akari's art](docs/COMPANION_ART.md): swapping in PixelLab sprites, with prompts
+- [Design rules](docs/DESIGN.md): the 魂動 KODO look, colors, type and layout rules
+- [Character art](docs/CHARACTER_ART.md): Akari and Kodo sprite sheets, and generating them with PixelLab
 
 ## Try everything on a computer
 
@@ -62,5 +63,7 @@ python3 tools/check-theme-glyphs.py   # fails if any character used is missing f
 node tools/build-states.js    # Road Trip state map data
 node tools/make-chime.js      # default startup chime
 node tools/make-companion-sprites.js   # Akari placeholder sprites (needs playwright)
+node tools/make-kodo-sprites.js        # Kodo placeholder sprites
+NODE_USE_ENV_PROXY=1 node tools/pixellab/generate.js   # real character art from PixelLab (needs PIXELLAB_API_KEY)
 sh tools/build-usb.sh         # assemble the USB installer in dist/usb
 ```

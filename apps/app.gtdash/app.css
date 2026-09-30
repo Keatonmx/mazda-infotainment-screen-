@@ -83,10 +83,10 @@
 [app="app.gtdash"] .sun-text i {
     display: block;
     font-style: normal;
-    font-family: 'KodoDisplay', sans-serif;
-    font-size: 12px;
-    letter-spacing: 4px;
-    color: rgba(255, 255, 255, 0.7);
+    font-family: 'KodoRound', sans-serif;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.75);
 }
 
 [app="app.gtdash"] .status {
@@ -106,10 +106,9 @@
 [app="app.gtdash"] .status i {
     display: block;
     font-style: normal;
-    font-family: 'KodoDisplay', sans-serif;
-    font-size: 14px;
-    letter-spacing: 3px;
-    color: #8c8696;
+    font-family: 'KodoRound', sans-serif;
+    font-size: 19px;
+    color: #b8b1c4;
 }
 
 [app="app.gtdash"] .cold .status b { color: #5b8def; }
@@ -158,29 +157,85 @@
     margin-left: 6px;
 }
 
-/* ---------- TRIP 旅 ---------- */
+/* ---------- TRIP 旅: fuel hero + three small cards ---------- */
+
+[app="app.gtdash"] .fuel {
+    left: 80px;
+    top: 76px;
+    width: 620px;
+    height: 150px;
+    padding: 16px 0 0 24px;
+}
+
+[app="app.gtdash"] .fuel b {
+    display: block;
+    font-weight: normal;
+    font-size: 76px;
+    line-height: 92px;
+}
+
+[app="app.gtdash"] .fuel.k-warn b { color: #d4a857; }
+[app="app.gtdash"] .fuel.k-bad b { color: #ff4d5e; }
+
+/* 8-segment gauge, E ... F */
+[app="app.gtdash"] .gauge {
+    position: absolute;
+    left: 300px;
+    top: 52px;
+    width: 330px;
+    height: 60px;
+}
+
+[app="app.gtdash"] .gauge i {
+    display: inline-block;
+    width: 32px;
+    height: 34px;
+    margin-right: 6px;
+    background: #26222e;
+    -o-transform: skewX(-12deg);
+    transform: skewX(-12deg);
+}
+
+[app="app.gtdash"] .gauge i.on { background: #f4ede1; }
+[app="app.gtdash"] .k-warn .gauge i.on { background: #d4a857; }
+[app="app.gtdash"] .k-bad .gauge i.on { background: #ff4d5e; }
+
+[app="app.gtdash"] .gauge span {
+    position: absolute;
+    top: 40px;
+    font-family: 'KodoDisplay', sans-serif;
+    font-size: 16px;
+    color: #9a93a6;
+}
+
+[app="app.gtdash"] .gauge .e { left: 8px; }
+[app="app.gtdash"] .gauge .h { left: 144px; }
+[app="app.gtdash"] .gauge .f { left: 280px; }
+
+[app="app.gtdash"] .fuel .note {
+    position: absolute;
+    left: 300px;
+    top: 116px;
+    font-size: 17px;
+}
+
+[app="app.gtdash"] .k-warn .note { color: #d4a857; }
+[app="app.gtdash"] .k-bad .note { color: #ff4d5e; }
 
 [app="app.gtdash"] .cell {
-    width: 300px;
-    height: 118px;
-    padding: 14px 0 0 20px;
+    top: 246px;
+    width: 180px;
+    height: 104px;
+    padding: 12px 0 0 18px;
 }
 
-[app="app.gtdash"] .c1 { left: 80px; top: 82px; }
-[app="app.gtdash"] .c2 { left: 410px; top: 82px; }
-[app="app.gtdash"] .c3 { left: 80px; top: 228px; }
-[app="app.gtdash"] .c4 { left: 410px; top: 228px; }
+[app="app.gtdash"] .c1 { left: 80px; }
+[app="app.gtdash"] .c2 { left: 300px; }
+[app="app.gtdash"] .c3 { left: 520px; }
 
 [app="app.gtdash"] .cell b {
-    font-size: 52px;
-    line-height: 70px;
-}
-
-[app="app.gtdash"] .cell .k-bar {
-    position: absolute;
-    left: 160px;
-    top: 72px;
-    width: 120px;
+    font-size: 42px;
+    line-height: 58px;
 }
 
 /* ---------- SERVICE 整備 ---------- */
@@ -206,7 +261,7 @@
 [app="app.gtdash"] .due .big-card b { color: #ff4d5e; }
 
 [app="app.gtdash"] .sub {
-    font-size: 20px;
+    font-size: 21px;
     color: #c9c2d2;
 }
 
@@ -224,10 +279,10 @@
 
 [app="app.gtdash"] .interval i {
     font-style: normal;
-    font-size: 12px;
-    letter-spacing: 3px;
-    color: #8c8696;
-    margin-left: 12px;
+    font-family: 'KodoRound', sans-serif;
+    font-size: 15px;
+    color: #9a93a6;
+    margin-left: 10px;
 }
 
 [app="app.gtdash"] .service .k-stamp {
@@ -272,10 +327,4 @@
     text-align: left;
 }
 
-[app="app.gtdash"] .raw i {
-    display: block;
-    margin-top: 10px;
-    font-style: normal;
-    font-size: 14px;
-    color: #8c8696;
-}
+

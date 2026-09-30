@@ -162,10 +162,11 @@ var MzdGreeting = (function() {
                 'background:#c8102e;text-align:center;font-family:KodoDisplay,sans-serif;font-size:56px;line-height:128px;color:#fff}' +
             '#mzd-greeting .gr-text{position:absolute;left:196px;top:28px;right:24px}' +
             '#mzd-greeting .gr-jp{font-family:KodoDisplay,sans-serif;font-size:36px;line-height:46px;color:#fff;white-space:nowrap}' +
-            '#mzd-greeting .gr-en{font-family:KodoDisplay,sans-serif;font-size:14px;letter-spacing:3px;color:#d4a857;' +
-                'text-transform:uppercase;margin:2px 0 12px}' +
+            '#mzd-greeting .gr-en{font-family:KodoRound,sans-serif;font-size:20px;letter-spacing:1px;color:#d4a857;' +
+                'margin:0 0 10px}' +
             '#mzd-greeting .gr-line{font-size:20px;line-height:28px;color:#f4ede1}' +
-            '#mzd-greeting .gr-line.dim{color:#a39cad}';
+            '#mzd-greeting .gr-line.dim{color:#a39cad}' +
+            '#mzd-greeting .gr-line{font-size:21px}';
         var style = document.createElement('style');
         style.id = 'mzd-greeting-style';
         style.appendChild(document.createTextNode(css));

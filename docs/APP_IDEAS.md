@@ -25,7 +25,7 @@ They **can't** change car settings, control the Bose amp, read fast signals (lik
 | 8 | **Health check page** | Shows the CMU's free memory and swap use, to see whether tweaks are slowing it down | Idea: needs a small shell helper |
 | 9 | **Knob Breakout** | Brick breaker played with the knob, parked only | ✅ Built (`app.knobbrick`) |
 | 10 | **Road Trip map** | Colors in each state you drive in; farthest and highest records | ✅ Built (`app.roadtrip`) |
-| 11 | **Kodo car pet** | Mood follows smooth driving, warm-ups, fuel, oil changes | ✅ Built (`app.carpet`) |
+| 11 | **Kodo car pet** | Pixel-art car spirit; mood follows smooth driving, warm-ups, fuel, oil changes | ✅ Built (`app.carpet`) |
 | 12 | **Startup greeting + sound** | Greeting card at boot with milestones and reminders, plus a chime | ✅ Built (`greeting/`) |
 | 14 | **Akari companion** | Anime chibi who gets madder the faster you go | ✅ Built (`app.companion`), placeholder art until PixelLab |
 | 13 | **Car achievements** | Badges: palindrome odometer, Night Owl, Polar Bear, Road Warrior | Idea: greeting already announces odometer milestones |

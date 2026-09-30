@@ -55,8 +55,9 @@ CustomApplicationsHandler.register("app.companion", new CustomApplication({
             '<div class="k-speedlines"></div>' +
             '<div class="sprite"></div>' +
             '<div class="k-bubble bubble"></div>' +
-            '<div class="hud"><span class="k-label">速度<i>SPEED</i></span><b class="speed k-num"></b>' +
-                '<span class="k-label anger">怒り<i>ANGER</i></span><span class="meter"></span></div>' +
+            '<div class="hud"><span class="k-label">速度<i>Speed</i></span><b class="speed k-num"></b>' +
+                '<span class="k-label anger">怒り<i>Anger</i></span><span class="meter"></span></div>' +
+            '<div class="k-hints"><span><i class="k-knob press"></i><b>なでる</b>Pat (parked)</span></div>' +
             '<div class="k-ribbon"><b>あかり</b><i>AKARI</i></div>' +
             '<div class="k-side">相<br>棒</div>';
         root.appendChild(this.el);

@@ -15,7 +15,7 @@
 [app="app.roadtrip"] .strip {
     position: absolute;
     left: 60px;
-    right: 60px;
+    right: 200px;
     bottom: 18px;
     height: 50px;
     line-height: 50px;
@@ -81,9 +81,9 @@
 
 [app="app.roadtrip"] .banner .bt i {
     font-style: normal;
-    font-family: 'KodoDisplay', sans-serif;
-    font-size: 13px;
-    letter-spacing: 4px;
+    font-family: 'KodoRound', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
     color: #d4a857;
     margin-left: 12px;
 }
@@ -131,15 +131,11 @@
 
 [app="app.roadtrip"] .cell .sub {
     font-size: 16px;
-    color: #c8102e;
+    color: #9a93a6;
 }
 
-[app="app.roadtrip"] .hint {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 22px;
-    text-align: center;
-    font-size: 16px;
-    color: #8c8696;
+[app="app.roadtrip"] .k-hints .confirm {
+    color: #d4a857;
 }
+
+

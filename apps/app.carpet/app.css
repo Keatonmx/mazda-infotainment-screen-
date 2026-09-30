@@ -1,300 +1,68 @@
-/* Kodo こどう: built from plain boxes and rounded corners on the shared KODO theme. No images or CSS animations. */
+/* Kodo こどう, the car's spirit, on the shared KODO theme. One sprite sheet, frames via background-position. */
 
 [app="app.carpet"] {
-    background: #000;
+    background: #0c0b10;
 }
 
 [app="app.carpet"] .stage {
     position: absolute;
     left: 0;
-    right: 0;
     top: 0;
-    height: 350px;
+    width: 800px;
+    height: 360px;
 }
 
-/* speech bubble (shape comes from .k-bubble) */
-[app="app.carpet"] .bubble {
-    left: 500px;
-    top: 70px;
-    width: 220px;
-}
-
-[app="app.carpet"] .bubble b {
-    font-size: 26px;
-    line-height: 34px;
-}
-
-/* the pet */
-[app="app.carpet"] .pet {
+/* 240x240 sprite; the spirit sits on the zabuton cushion */
+[app="app.carpet"] .sprite {
     position: absolute;
-    left: 220px;
-    width: 220px;
-    height: 330px;
+    left: 150px;
+    top: 72px;
+    width: 240px;
+    height: 240px;
+    background-image: url(sprites.png);
+    background-repeat: no-repeat;
 }
 
-[app="app.carpet"] .body {
-    position: absolute;
-    left: 10px;
-    top: 90px;
-    width: 200px;
-    height: 180px;
-    background: #c8102e;
-    border-radius: 100px 100px 80px 80px;
-}
-
-[app="app.carpet"] .belly {
-    position: absolute;
-    left: 50px;
-    top: 95px;
-    width: 100px;
-    height: 70px;
-    background: #e0485f;
-    border-radius: 50px;
-}
-
-[app="app.carpet"] .eye {
-    position: absolute;
-    top: 45px;
-    width: 40px;
-    height: 44px;
-    background: #fff;
-    border-radius: 22px;
-}
-
-[app="app.carpet"] .eye.l { left: 45px; }
-[app="app.carpet"] .eye.r { left: 115px; }
-
-[app="app.carpet"] .eye i {
-    position: absolute;
-    left: 12px;
-    top: 14px;
-    width: 18px;
-    height: 20px;
-    background: #111;
-    border-radius: 10px;
-}
-
-[app="app.carpet"] .cheek {
-    position: absolute;
-    top: 92px;
-    width: 24px;
-    height: 12px;
-    background: #ff8fa0;
-    border-radius: 6px;
-    opacity: 0.8;
-}
-
-[app="app.carpet"] .cheek.l { left: 28px; }
-[app="app.carpet"] .cheek.r { left: 148px; }
-
-[app="app.carpet"] .mouth {
-    position: absolute;
-    left: 75px;
-    top: 98px;
-    width: 50px;
-    height: 22px;
-    border: 5px solid #3a0010;
-    border-top: none;
-    border-radius: 0 0 50px 50px;
-    z-index: 2;
-}
-
-[app="app.carpet"] .foot {
-    position: absolute;
-    top: 258px;
-    width: 56px;
-    height: 24px;
-    background: #9a0c23;
-    border-radius: 28px 28px 12px 12px;
-}
-
-[app="app.carpet"] .foot.l { left: 40px; }
-[app="app.carpet"] .foot.r { left: 124px; }
-
-/* zabuton floor cushion */
+/* zabuton floor cushion, under the tires (tire bottoms are at y 225 in the frame) */
 [app="app.carpet"] .zabuton {
     position: absolute;
-    left: 225px;
-    top: 290px;
-    width: 210px;
-    height: 30px;
+    left: 160px;
+    top: 286px;
+    width: 214px;
+    height: 26px;
     background: #7d0a1c;
     border: 3px solid #d4a857;
-    border-radius: 14px;
+    border-radius: 12px;
 }
 
-/* hachimaki headband: white band with a red sun, tails trailing to the side */
-[app="app.carpet"] .band {
-    position: absolute;
-    left: 6px;
-    top: 26px;
-    width: 188px;
-    height: 16px;
-    background: #f4ede1;
-    border-radius: 4px;
+/* speech bubble (shape from .k-bubble) */
+[app="app.carpet"] .bubble {
+    left: 420px;
+    top: 104px;
+    width: 300px;
 }
 
-[app="app.carpet"] .band i {
-    position: absolute;
-    left: 84px;
-    top: 1px;
-    width: 14px;
-    height: 14px;
-    border-radius: 7px;
-    background: #c8102e;
-}
-
-[app="app.carpet"] .band-tail {
-    position: absolute;
-    left: 188px;
-    top: 30px;
-    width: 30px;
-    height: 10px;
-    background: #f4ede1;
-    border-radius: 0 6px 6px 0;
-    -o-transform: rotate(20deg);
-    transform: rotate(20deg);
-}
-
-/* faces */
-[app="app.carpet"] .face-grin .mouth {
-    height: 26px;
-    border: none;
-    background: #3a0010;
-    border-radius: 0 0 50px 50px;
-}
-
-[app="app.carpet"] .face-sad .mouth {
-    top: 108px;
-    border: 5px solid #3a0010;
-    border-bottom: none;
-    border-radius: 50px 50px 0 0;
-}
-
-[app="app.carpet"] .face-meh .mouth {
-    top: 108px;
-    left: 80px;
-    width: 40px;
-    height: 0;
-    border: none;
-    border-top: 5px solid #3a0010;
-    border-radius: 0;
-}
-
-[app="app.carpet"] .face-shock .mouth {
-    left: 86px;
-    width: 28px;
-    height: 30px;
-    border: none;
-    background: #3a0010;
-    border-radius: 15px;
-}
-
-[app="app.carpet"] .face-shock .eye i {
-    left: 14px;
-    top: 13px;
-    width: 12px;
-    height: 12px;
-}
-
-[app="app.carpet"] .face-sleep .eye,
-[app="app.carpet"] .blink .eye {
-    top: 66px;
-    height: 5px;
-    background: #3a0010;
-}
-
-[app="app.carpet"] .face-sleep .eye i,
-[app="app.carpet"] .blink .eye i {
-    display: none;
-}
-
-[app="app.carpet"] .face-sleep .mouth {
-    left: 88px;
-    width: 24px;
-    height: 0;
-    border: none;
-    border-top: 5px solid #3a0010;
-    border-radius: 0;
-    top: 110px;
-}
-
-/* extras */
-[app="app.carpet"] .scarf,
-[app="app.carpet"] .drop,
-[app="app.carpet"] .zzz,
-[app="app.carpet"] .heart {
-    display: none;
-    position: absolute;
-}
-
-[app="app.carpet"] .mood-cold .scarf {
-    display: block;
-    left: -6px;
-    top: 132px;
-    width: 212px;
-    height: 26px;
-    background: #3d9bff;
-    border-radius: 13px;
-}
-
-[app="app.carpet"] .mood-hot .drop,
-[app="app.carpet"] .mood-sick .drop {
-    display: block;
-    left: 172px;
-    top: 30px;
-    width: 18px;
-    height: 26px;
-    background: #7fd3ff;
-    border-radius: 9px 9px 12px 12px;
-}
-
-[app="app.carpet"] .mood-sick .body { background: #8e5a66; }
-[app="app.carpet"] .mood-sick .belly { background: #a7757f; }
-[app="app.carpet"] .mood-sick .drop { background: #9be08a; }
-
-[app="app.carpet"] .mood-sleepy .zzz {
-    display: block;
-    left: 175px;
-    top: -40px;
-    font-size: 36px;
-    font-weight: bold;
-    color: #8ab4ff;
-}
-
-[app="app.carpet"] .loved .heart {
-    display: block;
-    left: 90px;
-    top: 30px;
-    font-size: 48px;
-    color: #ff4d6d;
-}
-
-/* mood meter */
+/* mood meter + level */
 [app="app.carpet"] .meter {
     position: absolute;
-    left: 70px;
-    right: 70px;
-    bottom: 24px;
-    height: 30px;
-    line-height: 30px;
+    left: 420px;
+    top: 262px;
+    width: 300px;
+    height: 60px;
 }
 
 [app="app.carpet"] .meter .bar {
     position: absolute;
-    left: 150px;
-    right: 110px;
-    top: 9px;
-}
-
-[app="app.carpet"] .meter .bar div {
-    background: #79c267;
+    left: 0;
+    right: 90px;
+    top: 36px;
 }
 
 [app="app.carpet"] .meter .lvl {
     position: absolute;
     right: 0;
-    font-size: 24px;
+    top: 16px;
+    font-size: 30px;
     color: #d4a857;
 }
 
@@ -319,5 +87,5 @@
 
 [app="app.carpet"] .cell .sub {
     font-size: 16px;
-    color: #c8102e;
+    color: #9a93a6;
 }

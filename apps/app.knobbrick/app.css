@@ -60,10 +60,9 @@
 
 [app="app.knobbrick"] .hud span i {
     font-style: normal;
-    font-family: 'KodoDisplay', sans-serif;
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: #8c8696;
+    font-family: 'KodoRound', sans-serif;
+    font-size: 14px;
+    color: #9a93a6;
     margin-left: 6px;
 }
 
@@ -131,9 +130,9 @@
 
 [app="app.knobbrick"] .msg small {
     display: inline-block;
-    font-family: 'KodoDisplay', sans-serif;
-    font-size: 15px;
-    letter-spacing: 2px;
+    font-family: 'KodoRound', sans-serif;
+    font-size: 19px;
+    letter-spacing: 1px;
     color: #f4ede1;
     background: #c8102e;
     padding: 8px 18px;

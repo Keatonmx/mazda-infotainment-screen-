@@ -11,7 +11,10 @@
  * Kodo only notices driving while its app is on screen (CASDK sends data to the visible app only).
  *
  * Controls: press knob to pet (parked only), rotate knob to flip between Kodo and stats.
- * ES5 only. The frame loop just blinks and bobs; it stops when the app is not on screen.
+ * Art: sprites.png, one row per sprite mood (SPRITE_ROWS) x 3 columns (base, bob, blink), 240x240 cells.
+ * Placeholder from tools/make-kodo-sprites.js; PixelLab art drops in with the same layout (tools/pixellab/).
+ *
+ * ES5 only. The frame loop just picks sprite frames; it stops when the app is not on screen.
  */
 
 CustomApplicationsHandler.register("app.carpet", new CustomApplication({
@@ -206,11 +209,14 @@ CustomApplicationsHandler.register("app.carpet", new CustomApplication({
         return 'grumpy';
     },
 
-    // the face shape for each mood
-    FACE: {
-        sick: 'sad', hungry: 'sad', ouch: 'shock', coldrev: 'shock', sleepy: 'sleep', cold: 'meh',
-        hot: 'meh', ecstatic: 'grin', happy: 'smile', meh: 'meh', grumpy: 'sad', petted: 'grin'
+    // sprite sheet rows (must match tools/make-kodo-sprites.js) and which row each mood uses
+    SPRITE_ROWS: ['happy', 'ecstatic', 'meh', 'grumpy', 'sick', 'hungry', 'shock', 'sleepy', 'cold', 'hot', 'petted'],
+    MOOD_SPRITE: {
+        sick: 'sick', hungry: 'hungry', ouch: 'shock', coldrev: 'shock', sleepy: 'sleepy', cold: 'cold',
+        hot: 'hot', ecstatic: 'ecstatic', happy: 'happy', meh: 'meh', grumpy: 'grumpy', petted: 'petted'
     },
+    CELL: 240,
+
 
     level: function() {
         var km = this.data.odometer, start = this.get('adoptedKm');
@@ -236,7 +242,6 @@ CustomApplicationsHandler.register("app.carpet", new CustomApplication({
                     this.nudge(3);
                 }
                 this.react('petted', 2500);
-                this.hearts = 8;
                 break;
         }
         this.render();
@@ -247,28 +252,20 @@ CustomApplicationsHandler.register("app.carpet", new CustomApplication({
     build: function() {
         this.el.innerHTML =
             '<div class="stage">' +
-                '<div class="k-bubble bubble"></div>' +
-                '<div class="pet">' +
-                    '<div class="body"><div class="belly"></div>' +
-                        '<div class="eye l"><i></i></div><div class="eye r"><i></i></div>' +
-                        '<div class="cheek l"></div><div class="cheek r"></div>' +
-                        '<div class="mouth"></div>' +
-                        '<div class="band"><i></i></div><div class="band-tail"></div>' +
-                        '<div class="scarf"></div><div class="drop"></div><div class="zzz">z Z</div>' +
-                    '</div>' +
-                    '<div class="foot l"></div><div class="foot r"></div>' +
-                    '<div class="heart">&#10084;</div>' +
-                '</div>' +
                 '<div class="zabuton"></div>' +
+                '<div class="sprite"></div>' +
+                '<div class="k-bubble bubble"></div>' +
             '</div>' +
-            '<div class="meter"><span class="k-label">気分<i>MOOD</i></span><div class="k-bar bar"><div></div></div>' +
+            '<div class="meter"><span class="k-label">気分<i>Mood</i></span><div class="k-bar k-good bar"><div></div></div>' +
                 '<span class="lvl k-num"></span></div>' +
             '<div class="stats"></div>' +
             '<div class="k-ribbon"><b>こどう</b><i>KODO</i></div>' +
-            '<div class="k-side">魂<br>動</div>';
+            '<div class="k-side">魂<br>動</div>' +
+            '<div class="k-hints"><span><i class="k-knob rot"></i><b>ページ</b>Page</span>' +
+                '<span><i class="k-knob press"></i><b>なでる</b>Pat</span></div>';
         this.$ = {
             stage: this.el.getElementsByClassName('stage')[0],
-            pet: this.el.getElementsByClassName('pet')[0],
+            sprite: this.el.getElementsByClassName('sprite')[0],
             bubble: this.el.getElementsByClassName('bubble')[0],
             fill: this.el.getElementsByClassName('bar')[0].firstChild,
             lvl: this.el.getElementsByClassName('lvl')[0],
@@ -276,10 +273,18 @@ CustomApplicationsHandler.register("app.carpet", new CustomApplication({
         };
     },
 
+    // row = mood, column = base / bob / blink
+    drawSprite: function() {
+        var row = 0, name = this.MOOD_SPRITE[this.mood()];
+        for (var i = 0; i < this.SPRITE_ROWS.length; i++) if (this.SPRITE_ROWS[i] === name) row = i;
+        var col = this.frame % 16 === 15 ? 2 : Math.floor(this.frame / 2) % 2;
+        this.$.sprite.style.backgroundPosition = (-col * this.CELL) + 'px ' + (-row * this.CELL) + 'px';
+    },
+
     render: function() {
         if (!this.$) return;
         var mood = this.mood(), lines = this.LINES[mood], lv = this.level();
-        this.$.pet.className = 'pet face-' + this.FACE[mood] + ' mood-' + mood;
+        this.drawSprite();
         var line = lines[this.lineIndex % lines.length];
         this.$.bubble.innerHTML = '<b>' + line[0] + '</b><i>' + line[1] + '</i>';
         this.$.fill.style.width = Math.round(this.happiness()) + '%';
@@ -291,10 +296,10 @@ CustomApplicationsHandler.register("app.carpet", new CustomApplication({
         if (showStats) {
             var dist = lv.miles === undefined ? '--' : Math.round(this.isMetric() ? lv.miles / 0.621371 : lv.miles).toLocaleString();
             this.$.stats.innerHTML =
-                this.cell('c1', 'レベル', 'LEVEL', lv.level, Math.round(lv.into * 100) + '% to next') +
-                this.cell('c2', '一緒に', 'TOGETHER', dist, this.isMetric() ? 'km driven' : 'miles driven') +
-                this.cell('c3', '気分', 'MOOD', Math.round(this.happiness()), 'out of 100') +
-                this.cell('c4', '荒い運転', 'HARSH MOMENTS', this.get('harshTotal', 0), 'since we met');
+                this.cell('c1', 'レベル', 'Level', lv.level, Math.round(lv.into * 100) + '% to next') +
+                this.cell('c2', '一緒に', 'Together', dist, this.isMetric() ? 'km driven' : 'miles driven') +
+                this.cell('c3', '気分', 'Mood', Math.round(this.happiness()), 'out of 100') +
+                this.cell('c4', '荒い運転', 'Harsh moments', this.get('harshTotal', 0), 'since we met');
         }
     },
 
@@ -303,20 +308,10 @@ CustomApplicationsHandler.register("app.carpet", new CustomApplication({
             '<b class="k-num">' + value + '</b><span class="sub">' + sub + '</span></div>';
     },
 
-    // 4 frames per second: blink, bob, hearts, and rotate speech lines every ~12 s
+    // 4 frames per second: sprite frames, and rotate speech lines every ~12 s
     tick: function() {
         this.frame++;
-        var pet = this.$.pet;
-        var blink = this.frame % 16 === 0;
-        var bob = Math.floor(this.frame / 2) % 2 === 0;
-        pet.style.top = (bob ? 0 : 4) + 'px';
-        if (blink) pet.className += ' blink';
-        else pet.className = pet.className.replace(' blink', '');
-
-        if (this.hearts > 0) {
-            this.hearts--;
-            pet.className = pet.className.replace(' loved', '') + (this.hearts > 0 ? ' loved' : '');
-        }
+        this.drawSprite();
         if (this.frame % 48 === 0) {
             this.lineIndex++;
             this.checkOilChange();

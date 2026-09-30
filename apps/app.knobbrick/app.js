@@ -260,15 +260,15 @@ CustomApplicationsHandler.register("app.knobbrick", new CustomApplication({
         var hearts = '';
         for (var i = 0; i < this.lives; i++) hearts += '<i></i>';
         this.hud.innerHTML = '<b class="k-jp title">ブロック崩し</b>' +
-            this.stat('得点', 'SCORE', this.score) +
-            this.stat('面', 'STAGE', this.level) +
+            this.stat('得点', 'Score', this.score) +
+            this.stat('面', 'Stage', this.level) +
             '<span class="lives"><em class="k-jp">残機</em>' + hearts + '</span>' +
-            this.stat('最高', 'BEST', this.best);
+            this.stat('最高', 'Best', this.best);
 
         var msg = '';
-        if (this.moving) msg = '<b class="k-jp">一時停止</b><small>PAUSED · PARKED ONLY · RESUMES WHEN YOU STOP</small>';
-        else if (this.state === 'ready') msg = '<small>ノブで狙え · ROTATE TO AIM · PRESS TO LAUNCH</small>';
-        else if (this.state === 'over') msg = '<b class="k-jp">ゲームオーバー</b><small>PRESS THE KNOB TO PLAY AGAIN</small>';
+        if (this.moving) msg = '<b class="k-jp">一時停止</b><small>Paused · parked only · resumes when you stop</small>';
+        else if (this.state === 'ready') msg = '<small>ノブで狙え · Rotate to aim · press to launch</small>';
+        else if (this.state === 'over') msg = '<b class="k-jp">ゲームオーバー</b><small>Press the knob to play again</small>';
         this.message.innerHTML = msg;
         this.message.style.display = msg ? 'block' : 'none';
         this.el.className = 'k-root bo' + (this.moving ? ' locked' : '') + (this.state === 'ready' ? ' ready' : '');

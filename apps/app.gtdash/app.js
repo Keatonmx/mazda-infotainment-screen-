@@ -171,10 +171,26 @@ CustomApplicationsHandler.register("app.gtdash", new CustomApplication({
 
     PAGE_TITLES: [['機関', 'ENGINE'], ['旅', 'TRIP'], ['整備', 'SERVICE']],
 
+    // control hints for each page: [knob icon, Japanese, English]
+    PAGE_HINTS: [
+        [['rot', 'ページ', 'Page'], ['left', '生データ', 'Raw']],
+        [['rot', 'ページ', 'Page']],
+        [['rot', 'ページ', 'Page'], ['updown', '間隔', 'Interval'], ['press', '記録', 'Log change ×2']]
+    ],
+
+    hints: function(list) {
+        var html = '';
+        for (var i = 0; i < list.length; i++) {
+            html += '<span><i class="k-knob ' + list[i][0] + '"></i><b>' + list[i][1] + '</b>' + list[i][2] + '</span>';
+        }
+        return '<div class="k-hints">' + html + '</div>';
+    },
+
     render: function() {
         if (!this.el) return;
         var title = this.rawMode ? ['生データ', 'RAW VALUES'] : this.PAGE_TITLES[this.page];
         var body = this.rawMode ? this.renderRaw() : this.pages[this.page].call(this);
+        var hints = this.rawMode ? [['left', '戻る', 'Back']] : this.PAGE_HINTS[this.page];
         var dots = '';
         for (var i = 0; i < this.pages.length; i++) {
             dots += '<i class="' + (i === this.page ? 'on' : '') + '"></i>';
@@ -183,46 +199,57 @@ CustomApplicationsHandler.register("app.gtdash", new CustomApplication({
             '<div class="k-ribbon"><b>' + title[0] + '</b><i>' + title[1] + '</i></div>' +
             '<div class="k-side">計<br>器<br>盤</div>' +
             body +
-            '<div class="k-dots">' + dots + '</div>';
+            '<div class="k-dots">' + dots + '</div>' +
+            this.hints(hints);
     },
 
     renderEngine: function() {
-        var c = this.values.coolant, state = 'cold', jp = '暖機中', en = 'WARMING UP · GO EASY', pct = 0;
+        var c = this.values.coolant, state = 'cold', jp = '暖機中', en = 'Warming up · go easy', pct = 0;
         if (c === undefined) {
-            state = 'none'; jp = '待機中'; en = 'WAITING FOR DATA';
+            state = 'none'; jp = '待機中'; en = 'Waiting for data';
         } else {
             pct = Math.max(0, Math.min(100, (c - 20) / (this.WARM_AT - 20) * 100));
-            if (c >= this.HOT_AT) { state = 'hot'; jp = 'オーバーヒート'; en = 'OVERHEATING · PULL OVER'; }
-            else if (c >= this.WARM_AT) { state = 'warm'; jp = '準備完了'; en = 'ENGINE WARM · READY'; }
-            else if (c >= this.COLD_BELOW) { state = 'mid'; jp = 'もう少し'; en = 'ALMOST WARM'; }
+            if (c >= this.HOT_AT) { state = 'hot'; jp = 'オーバーヒート'; en = 'Overheating · pull over'; }
+            else if (c >= this.WARM_AT) { state = 'warm'; jp = '準備完了'; en = 'Engine warm · ready'; }
+            else if (c >= this.COLD_BELOW) { state = 'mid'; jp = 'もう少し'; en = 'Almost warm'; }
         }
         var t = this.tempParts(c), intake = this.tempParts(this.values.intake), outside = this.tempParts(this.values.outside);
         return '<div class="engine ' + state + '">' +
             '<div class="ring"></div>' +
             '<div class="k-sun"></div>' +
             '<div class="sun-text"><span class="k-jp">水温</span><b class="k-num">' + t[0] + '</b><em>' + t[1] + '</em>' +
-                '<i>COOLANT</i></div>' +
+                '<i>Coolant</i></div>' +
             '<div class="status"><b class="k-jp">' + jp + '</b><i>' + en + '</i></div>' +
             '<div class="k-bar warm-bar"><div style="width:' + pct + '%"></div></div>' +
-            '<div class="k-card mini m1"><div class="k-label">吸気<i>INTAKE</i></div>' +
+            '<div class="k-card mini m1"><div class="k-label">吸気<i>Intake</i></div>' +
                 '<b class="k-num">' + intake[0] + '<em>' + intake[1] + '</em></b></div>' +
-            '<div class="k-card mini m2"><div class="k-label">外気<i>OUTSIDE</i></div>' +
+            '<div class="k-card mini m2"><div class="k-label">外気<i>Outside</i></div>' +
                 '<b class="k-num">' + outside[0] + '<em>' + outside[1] + '</em></b></div>' +
         '</div>';
     },
 
+    // fuel is the hero: a segmented gauge like the car's own, colored by meaning
     renderTrip: function() {
         var econ = this.values.economy, econText = '--', econUnit = this.isMetric() ? 'L/100km' : 'MPG';
         if (econ !== undefined && econ > 0) {
             econText = this.isMetric() ? econ.toFixed(1) : (235.215 / econ).toFixed(1);
         }
         var fuel = this.values.fuel, outside = this.tempParts(this.values.outside);
+        var level = fuel === undefined ? '' : (fuel < 12 ? 'k-bad' : (fuel < 25 ? 'k-warn' : ''));
+        var note = fuel === undefined ? '' : (fuel < 12 ? '給油してください · Refuel soon' : (fuel < 25 ? '残り少ない · Getting low' : ''));
+        var segs = '', lit = fuel === undefined ? 0 : Math.ceil(fuel / 12.5);
+        for (var i = 0; i < 8; i++) segs += '<i class="' + (i < lit ? 'on' : '') + '"></i>';
+
         return '<div class="trip">' +
-            this.card('c1', '燃料', 'FUEL', this.fmt(fuel), '%',
-                '<div class="k-bar"><div style="width:' + (fuel || 0) + '%"></div></div>') +
-            this.card('c2', '燃費', 'AVG ECONOMY', econText, econUnit) +
-            this.card('c3', '電池', 'BATTERY', this.fmt(this.values.battery), '') +
-            this.card('c4', '外気', 'OUTSIDE', outside[0], outside[1]) +
+            '<div class="k-card fuel ' + level + '">' +
+                '<div class="k-label">燃料<i>Fuel</i></div>' +
+                '<b class="k-num">' + this.fmt(fuel) + '<em>%</em></b>' +
+                '<div class="gauge">' + segs + '<span class="e">E</span><span class="h">½</span><span class="f">F</span></div>' +
+                '<div class="note">' + note + '</div>' +
+            '</div>' +
+            this.card('c1', '燃費', 'Economy', econText, econUnit) +
+            this.card('c2', '電池', 'Battery', this.fmt(this.values.battery), '') +
+            this.card('c3', '外気', 'Outside', outside[0], outside[1]) +
         '</div>';
     },
 
@@ -234,24 +261,24 @@ CustomApplicationsHandler.register("app.gtdash", new CustomApplication({
     renderService: function() {
         var odo = this.values.odometer, unit = this.distanceUnit(), interval = this.oilInterval();
         var last = this.get('oilOdo');
-        var main = '--', sub = 'Press knob twice to log an oil change', state = 'none', stamp = '';
+        var main = '--', sub = 'No oil change logged yet', state = 'none', stamp = '';
         if (odo !== undefined && last !== undefined) {
             var left = Math.round(interval - this.distance(odo - last));
             main = Math.abs(left).toLocaleString() + '<em>' + unit + '</em>';
-            sub = left >= 0 ? 'until the next oil change' : 'OVERDUE · change the oil soon';
+            sub = left >= 0 ? 'until the next oil change' : 'overdue · change the oil soon';
             state = left < 0 ? 'due' : (left < 500 ? 'soon' : 'ok');
             stamp = left < 0 ? '要交換' : (left < 500 ? '間近' : '良好');
         } else if (odo === undefined) {
             sub = 'Waiting for odometer';
         }
-        if (new Date().getTime() < this.confirmUntil) sub = 'Press again to confirm oil change';
+        if (new Date().getTime() < this.confirmUntil) sub = 'Press again to log the oil change';
         return '<div class="service ' + state + '">' +
             '<div class="k-card big-card">' +
-                '<div class="k-label">オイル交換<i>OIL CHANGE</i></div>' +
+                '<div class="k-label">オイル交換<i>Oil change</i></div>' +
                 '<b class="k-num">' + main + '</b>' +
                 '<div class="sub">' + sub + '</div>' +
                 '<div class="interval"><span class="k-jp">間隔</span> ' + interval.toLocaleString() + ' ' + unit +
-                    '<i>INTERVAL · knob up/down</i></div>' +
+                    '<i>interval</i></div>' +
             '</div>' +
             (stamp ? '<div class="k-stamp">' + stamp + '</div>' : '') +
         '</div>';
@@ -263,6 +290,6 @@ CustomApplicationsHandler.register("app.gtdash", new CustomApplication({
             rows += '<tr><td>' + key + '</td><td>' +
                 (this.raw[key] === undefined ? '--' : this.raw[key]) + '</td></tr>';
         }
-        return '<div class="k-card raw"><table>' + rows + '</table><i>knob left to exit</i></div>';
+        return '<div class="k-card raw"><table>' + rows + '</table></div>';
     }
 }));

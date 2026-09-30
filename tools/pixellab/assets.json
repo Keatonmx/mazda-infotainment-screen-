@@ -1,0 +1,44 @@
+{
+    "_about": "What tools/pixellab/generate.js asks PixelLab for. Rows must stay in the order each app expects.",
+    "style": {
+        "outline": "single color black outline",
+        "shading": "basic shading",
+        "detail": "medium detail",
+        "negative": "blurry, text, watermark, background scenery, multiple characters, cropped"
+    },
+    "characters": {
+        "akari": {
+            "app": "app.companion",
+            "size": 48,
+            "scale": 5,
+            "base": "cute chibi anime girl mascot, front view facing the viewer, full body, big head small body, dark purple twin tails with red hair ties, big sparkling dark eyes, Mazda Soul Red racing jacket with white collar, white shirt, dark shoes, pixel art",
+            "rows": [
+                {"name": "calm", "prompt": "gentle smile, relaxed, hands at sides"},
+                {"name": "happy", "prompt": "eyes closed happily like ^ ^, big smile, rosy blushing cheeks"},
+                {"name": "pouty", "prompt": "half-lidded unimpressed eyes, flat mouth, side-eye, hands at sides"},
+                {"name": "annoyed", "prompt": "puffed cheeks, furrowed eyebrows, pouting lips, hands on hips"},
+                {"name": "mad", "prompt": "shouting with mouth wide open, angry slanted eyebrows, red face, cartoon anger mark symbol on head, both fists raised"},
+                {"name": "furious", "prompt": "eyes squeezed shut like > <, screaming, very red face, cartoon steam puffs coming out of her ears, two anger marks, flailing fists"}
+            ]
+        },
+        "kodo": {
+            "app": "app.carpet",
+            "size": 48,
+            "scale": 5,
+            "base": "cute round red spirit mascot, a car's soul (tsukumogami), round glossy Soul Red body like a mochi, small orange hitodama flame floating on top of its head, white hachimaki headband with a small red circle, two tiny black car tires for feet, front view facing the viewer, pixel art",
+            "rows": [
+                {"name": "happy", "prompt": "happy smile, rosy cheeks"},
+                {"name": "ecstatic", "prompt": "eyes closed happily like ^ ^, big open-mouth grin, blushing"},
+                {"name": "meh", "prompt": "half-lidded bored eyes, flat mouth"},
+                {"name": "grumpy", "prompt": "angry eyebrows, frown, cartoon anger mark symbol"},
+                {"name": "sick", "prompt": "pale greyish body, worried eyes, wavy nauseous mouth, green sweat drop"},
+                {"name": "hungry", "prompt": "sad worried eyes, open mouth, drooling"},
+                {"name": "shock", "prompt": "wide startled eyes, small round open mouth, red exclamation mark above"},
+                {"name": "sleepy", "prompt": "eyes closed sleeping, blue flame, small Zzz above"},
+                {"name": "cold", "prompt": "shivering, wavy mouth, wearing a blue scarf, blue flame"},
+                {"name": "hot", "prompt": "overheated, open mouth, sweat drop"},
+                {"name": "petted", "prompt": "eyes closed happily like ^ ^, content smile, blushing, small pink heart above"}
+            ]
+        }
+    }
+}
