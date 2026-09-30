@@ -14,6 +14,8 @@ INSTALL_KODO=1
 INSTALL_COMPANION=1
 INSTALL_GREETING=1
 INSTALL_SOUND=1
+INSTALL_STOCK_THEME=1   # KODO look for the stock Mazda screens (home coins, arc, background); originals are backed up
+DUMP_STOCK_UI=1         # read-only: copies the stock interface's .css/.js/.html to the USB (for the next redesign step)
 UNINSTALL=0
 
 # ---------------------------------------------------------------------------
@@ -27,6 +29,7 @@ SOUND_DIR="/tmp/mnt/resources/aio/sounds"
 GREETING_ASSETS="/tmp/mnt/resources/aio/mzd-greeting"
 STAGE_WIFI="/jci/scripts/stage_wifi.sh"
 SOUND_MARK="mzd-greeting-sound"
+THEME_BACKUP="/tmp/mnt/resources/aio/kodo-stock-backup"
 
 log_message()
 {
@@ -76,6 +79,62 @@ uninstall_app()
   log_message "removed ${1}"
 }
 
+# Copy stock-theme/files over the stock interface. The first time a file is replaced, the original is saved in
+# THEME_BACKUP (never overwritten later, so reinstalling keeps the true original). Files that didn't exist
+# before are listed in added.txt so uninstall can remove them.
+install_stock_theme()
+{
+  mkdir -p "${THEME_BACKUP}"
+  ( cd "${MYDIR}/stock-theme/files" && find . -type f ) | while read -r f
+  do
+    rel="${f#./}"
+    dest="/${rel}"
+    if [ -e "${dest}" ]
+    then
+      if [ ! -e "${THEME_BACKUP}/${rel}" ]
+      then
+        mkdir -p "$(dirname "${THEME_BACKUP}/${rel}")"
+        cp -a "${dest}" "${THEME_BACKUP}/${rel}"
+      fi
+    else
+      grep -qx "${dest}" "${THEME_BACKUP}/added.txt" 2>/dev/null || echo "${dest}" >> "${THEME_BACKUP}/added.txt"
+    fi
+    mkdir -p "$(dirname "${dest}")"
+    cp "${MYDIR}/stock-theme/files/${rel}" "${dest}"
+    log_message "theme: ${dest}"
+  done
+}
+
+restore_stock_theme()
+{
+  [ -d "${THEME_BACKUP}" ] || return 0
+  ( cd "${THEME_BACKUP}" && find . -type f ! -name added.txt ) | while read -r f
+  do
+    rel="${f#./}"
+    cp -a "${THEME_BACKUP}/${rel}" "/${rel}"
+    log_message "restored /${rel}"
+  done
+  if [ -e "${THEME_BACKUP}/added.txt" ]
+  then
+    while read -r d; do rm -f "${d}"; done < "${THEME_BACKUP}/added.txt"
+  fi
+  rm -rf "${THEME_BACKUP}"
+}
+
+# Read-only: copy the stock interface's text files (.css/.js/.html) to the USB so the rest of the
+# screens can be redesigned against the real stylesheets. Images are skipped (themes cover those).
+dump_stock_ui()
+{
+  DUMP="${MYDIR}/stock-ui-dump"
+  rm -rf "${DUMP}"
+  find /jci/gui -type f \( -name '*.css' -o -name '*.js' -o -name '*.html' \) | while read -r f
+  do
+    mkdir -p "${DUMP}$(dirname "${f}")"
+    cp "${f}" "${DUMP}${f}"
+  done
+  log_message "dumped stock UI: $(find "${DUMP}" -type f | wc -l) files"
+}
+
 # ---------------------------------------------------------------------------
 
 echo "=== Mazda custom apps installer $(date) ===" > "${LOG}"
@@ -97,6 +156,7 @@ then
   rm -rf "${GREETING_ASSETS}"
   rm -rf "${SOUND_DIR}"
   sed -i "/${SOUND_MARK}/d" "${STAGE_WIFI}"
+  restore_stock_theme
   finish "CUSTOM APPS REMOVED"
 fi
 
@@ -159,6 +219,20 @@ then
     echo "(sleep 30; /usr/bin/gplay --audio-sink=alsasink ${SOUND_DIR}/startup.mp3 >/dev/null 2>&1 & sleep 6; killall -9 gplay) & # ${SOUND_MARK}" >> "${STAGE_WIFI}"
     log_message "sound: added to ${STAGE_WIFI}"
   fi
+fi
+
+# ---- dump the stock interface (read-only), before the theme changes anything ----
+if [ "${DUMP_STOCK_UI}" -eq 1 ]
+then
+  show_message "COPYING STOCK INTERFACE FILES TO USB..."
+  dump_stock_ui
+fi
+
+# ---- KODO look for the stock screens ----
+if [ "${INSTALL_STOCK_THEME}" -eq 1 ] && [ -d "${MYDIR}/stock-theme/files" ]
+then
+  show_message "INSTALLING KODO THEME..."
+  install_stock_theme
 fi
 
 finish "CUSTOM APPS INSTALLED"

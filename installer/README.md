@@ -55,6 +55,8 @@ INSTALL_KODO=1
 INSTALL_COMPANION=1
 INSTALL_GREETING=1
 INSTALL_SOUND=1
+INSTALL_STOCK_THEME=1
+DUMP_STOCK_UI=1
 UNINSTALL=0
 ```
 
@@ -79,6 +81,8 @@ and `metric` or `imperial`.
 | Greeting fonts + pattern | `/tmp/mnt/resources/aio/mzd-greeting/` |
 | Theme (fonts, patterns, `kodo.css`) | a `theme/` folder inside each app |
 | Sound | `/tmp/mnt/resources/aio/sounds/startup.mp3` |
+| Stock theme images | their stock paths in `/jci/gui`; originals saved to `/tmp/mnt/resources/aio/kodo-stock-backup/` |
+| Stock UI dump (read-only) | `stock-ui-dump/` on the USB stick |
 | Sound fallback (no AIO Tweaks app) | one line in `/jci/scripts/stage_wifi.sh`, tagged `mzd-greeting-sound` |
 
 The installer only adds or removes its own entries in `apps.js`, matching the exact app names, so AIO's apps

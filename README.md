@@ -17,6 +17,7 @@ English subtitles, manga speech bubbles and hanko stamps. See [theme/kodo.css](t
 | **[Akari あかり](apps/app.companion)** | An anime chibi companion who gets madder the faster you drive: happy, pouty, puffed cheeks, shouting, then full meltdown with steam at 85+ mph. Pat her head while parked. |
 | **[Startup greeting おはよう](greeting)** | A card at startup: good morning, holidays, your birthday, odometer milestones, cold-engine and oil reminders |
 | **[Startup sound](docs/STARTUP_SOUND.md)** | A short chime (or your own MP3) with the greeting |
+| **[Stock screen theme](stock-theme)** | The KODO look for Mazda's own screens: kanji-emblem home coins, gold arc, Soul Red focus, wave background. Originals backed up and restorable. |
 
 Guides:
 
